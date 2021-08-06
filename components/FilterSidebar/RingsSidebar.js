@@ -1,7 +1,7 @@
 import React from "react";
 import FilterSidebarElements from "./FilterSidebarElements";
 
-function RingsSideBar({ setRingsStarRating }) {
+function RingsSideBar({ setRingsStarRating, setRingsPriceRange }) {
   return (
     <FilterSidebarElements
       setLuxuryRating={setRingsStarRating}

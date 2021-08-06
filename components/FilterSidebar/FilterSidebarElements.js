@@ -22,22 +22,29 @@ function FilterSidebarElements({ setLuxuryRating, setLuxuryPriceRange }) {
   const changePriceRange = (index) => {
     switch (index) {
       case 0:
-        setLuxuryPriceRange(a);
+        setLuxuryPriceRange("a");
         break;
       case 1:
-        setLuxuryPriceRange(b);
+        setLuxuryPriceRange("b");
         break;
       case 2:
-        setLuxuryPriceRange(c);
+        setLuxuryPriceRange("c");
         break;
       case 3:
-        setLuxuryPriceRange(d);
+        setLuxuryPriceRange("d");
         break;
     }
   };
 
+  const resetPriceRange = () => {
+    setLuxuryPriceRange("");
+  };
+
   return (
     <FilterSidebarContainer>
+      <ResetItemPrice onClick={resetPriceRange}>
+        Reset Price Range
+      </ResetItemPrice>
       <ItemPriceContainer>
         {priceRangeArray.map((range, index) => (
           <ItemPriceWrapper key={index}>
@@ -68,11 +75,14 @@ const FilterSidebarContainer = styled.div`
   width: 12vw;
   background: #a6a6a6;
   height: 900px;
-
+  gap: 40px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
+
+const ResetItemPrice = styled.button``;
 
 const ItemPriceContainer = styled.div``;
 
@@ -82,11 +92,12 @@ const ItemPriceWrapper = styled.div`
   align-items: center;
 `;
 
-const ItemPrice = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const ItemPrice = styled.button`
   font-size: 14px;
+
+  :focus {
+    color: red;
+  }
 `;
 
 const ItemRatingContainer = styled.div`

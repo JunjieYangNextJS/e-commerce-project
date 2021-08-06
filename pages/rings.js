@@ -15,23 +15,58 @@ function Rings() {
 
   // setState and filter rings depending on their ratings
   const [ringsStarRating, setRingsStarRating] = useState(1);
-  const RingsFilteredByRating = allRings.filter(
+  const ringsFilteredByRating = allRings.filter(
     (ring) => ring.product.rating >= ringsStarRating
   );
 
   // setState and filter rings depending on their price ranges
   const [ringsPriceRange, setRingsPriceRange] = useState("");
+  const getPriceRange = (priceRange, filteredByRating) => {
+    switch (priceRange) {
+      case "a":
+        return filteredByRating.filter((luxury) => luxury.product.price < 500);
+      case "b":
+        return filteredByRating.filter(
+          (luxury) => luxury.product.price >= 500 && luxury.product.price < 1000
+        );
+      case "c":
+        return filteredByRating.filter(
+          (luxury) =>
+            luxury.product.price >= 1000 && luxury.product.price < 1500
+        );
+      case "d":
+        return filteredByRating.filter((luxury) => luxury.product.price > 1500);
+      default:
+        return null;
+    }
+  };
+
+  const ringsFilteredByRatingAndPrice = getPriceRange(
+    ringsPriceRange,
+    ringsFilteredByRating
+  );
 
   // set rings page pagination state
   const [ringsCurrentPage, setRingsCurrentPage] = useState(1);
 
   const pageSize = 4;
   let ringsPageNumberArray = [];
-  for (let i = 1; i <= Math.ceil(RingsFilteredByRating.length / pageSize); i++)
+  for (
+    let i = 1;
+    i <=
+    Math.ceil(
+      (ringsFilteredByRatingAndPrice
+        ? ringsFilteredByRatingAndPrice.length
+        : ringsFilteredByRating.length) / pageSize
+    );
+    i++
+  )
     ringsPageNumberArray.push(i);
 
   const ringsEachPage = paginate(
-    RingsFilteredByRating,
+    ringsFilteredByRatingAndPrice
+      ? ringsFilteredByRatingAndPrice
+      : ringsFilteredByRating,
     ringsCurrentPage,
     pageSize
   );

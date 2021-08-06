@@ -19,8 +19,13 @@ const HeroElements = ({ products, luxuries }) => {
     router.push(page);
   };
 
-  console.log(products);
-  console.log(luxuries);
+  const testing = (a, b) => {
+    b.filter((m) => m[0]);
+  };
+
+  const result = testing("", [1, 2, 3]);
+
+  console.log(result);
 
   return (
     <HeroContainer>
