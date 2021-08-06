@@ -6,7 +6,7 @@ import ProductFeed from "./ProductFeed";
 import { signIn, signOut, useSession } from "next-auth/client";
 import { ProductsDropDownList, ProductsDDLSection } from "../Navbar";
 
-const HeroElements = ({ products, luxuries }) => {
+const HeroElements = ({ products }) => {
   const [session] = useSession();
 
   const [clickForMore, setClickForMore] = useState(false);
@@ -100,10 +100,12 @@ const HeroSection = styled.div`
 `;
 
 const HeroTitle = styled.h1`
+  font-family: "Times New Roman", Times, serif;
+  font-size: 40px;
   cursor: default;
   text-align: center;
   color: #ffd700;
-  font-size: 36px;
+
   text-shadow: 3px 3px gray;
 `;
 

@@ -34,8 +34,6 @@ export default LuxuriesItems;
 const LuxuryContainer = styled.div`
   display: flex;
   flex-direction: row;
-  /* align-items: center;
-  justify-content: center; */
   margin-left: 100px;
   margin-right: 100px;
   width: 620px;
@@ -61,12 +59,13 @@ const TextContainer = styled.div`
     width: 320px;
     text-align: center;
     margin-bottom: -6px;
+    font-weight: 800;
   }
 `;
 
 const Description = styled.p`
-  text-align: left;
-  margin-bottom: -7px; ;
+  text-align: center;
+  margin-bottom: -7px;
 `;
 
 const Rating = styled.div`
@@ -79,5 +78,5 @@ const Rating = styled.div`
 `;
 
 const PriceContainer = styled.div`
-  font-weight: 600;
+  font-weight: bold;
 `;

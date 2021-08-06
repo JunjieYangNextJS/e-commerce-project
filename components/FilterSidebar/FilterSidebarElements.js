@@ -42,10 +42,10 @@ function FilterSidebarElements({ setLuxuryRating, setLuxuryPriceRange }) {
 
   return (
     <FilterSidebarContainer>
-      <ResetItemPrice onClick={resetPriceRange}>
-        Reset Price Range
-      </ResetItemPrice>
       <ItemPriceContainer>
+        <ResetItemPrice onClick={resetPriceRange}>
+          Reset Price Range
+        </ResetItemPrice>
         {priceRangeArray.map((range, index) => (
           <ItemPriceWrapper key={index}>
             <ItemPrice onClick={() => changePriceRange(index)}>
@@ -74,29 +74,49 @@ export default FilterSidebarElements;
 const FilterSidebarContainer = styled.div`
   width: 12vw;
   background: #a6a6a6;
-  height: 900px;
-  gap: 40px;
+  height: 899px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 150px;
 `;
 
-const ResetItemPrice = styled.button``;
+const ItemPriceContainer = styled.div`
+  margin-top: -100px;
+`;
 
-const ItemPriceContainer = styled.div``;
+const ResetItemPrice = styled.button`
+  border: none;
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 30px;
+  cursor: pointer;
+`;
 
 const ItemPriceWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 5px;
+
+  hr {
+    width: 100%;
+  }
 `;
 
 const ItemPrice = styled.button`
-  font-size: 14px;
+  font-size: 16px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin-bottom: -6px;
 
   :focus {
-    color: red;
+    color: #ffd700;
+    font-size: 17px;
+    margin-bottom: -8px;
   }
 `;
 
@@ -110,7 +130,6 @@ const ItemRatingContainer = styled.div`
   justify-content: center;
 
   hr {
-    background-color: black;
     width: 100%;
     margin-top: 3px;
   }
@@ -126,5 +145,5 @@ const ItemRating = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
+  font-size: 13px;
 `;

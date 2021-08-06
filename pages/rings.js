@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Image from "next/image";
 import Navbar from "../components/Navbar";
 import PaginateBtn from "../components/PaginateBtn";
 import { paginate } from "../utility/paginate";
+import { getPriceRange } from "../utility/getPriceRange";
 import { useLuxuries } from "../contexts/LuxuriesContext";
 import LuxuriesItems from "../components/LuxuriesItems";
 import RingsSidebar from "../components/FilterSidebar/RingsSidebar";
@@ -21,25 +21,6 @@ function Rings() {
 
   // setState and filter rings depending on their price ranges
   const [ringsPriceRange, setRingsPriceRange] = useState("");
-  const getPriceRange = (priceRange, filteredByRating) => {
-    switch (priceRange) {
-      case "a":
-        return filteredByRating.filter((luxury) => luxury.product.price < 500);
-      case "b":
-        return filteredByRating.filter(
-          (luxury) => luxury.product.price >= 500 && luxury.product.price < 1000
-        );
-      case "c":
-        return filteredByRating.filter(
-          (luxury) =>
-            luxury.product.price >= 1000 && luxury.product.price < 1500
-        );
-      case "d":
-        return filteredByRating.filter((luxury) => luxury.product.price > 1500);
-      default:
-        return null;
-    }
-  };
 
   const ringsFilteredByRatingAndPrice = getPriceRange(
     ringsPriceRange,
@@ -80,7 +61,7 @@ function Rings() {
           setRingsPriceRange={setRingsPriceRange}
         />
         <RingsBodyContainer>
-          <RingsBodyTitle>WELCOME TO POPO</RingsBodyTitle>
+          <RingsBodyTitle>Our Exclusive Rings</RingsBodyTitle>
           <RingsItemsContainer>
             {ringsEachPage.map(({ id, product }) => (
               <LuxuriesItems
@@ -93,12 +74,12 @@ function Rings() {
               />
             ))}
           </RingsItemsContainer>
+          <PaginateBtn
+            setCurrentPage={setRingsCurrentPage}
+            pageNumberArray={ringsPageNumberArray}
+          />
         </RingsBodyContainer>
       </RingsPageWrapper>
-      <PaginateBtn
-        setCurrentPage={setRingsCurrentPage}
-        pageNumberArray={ringsPageNumberArray}
-      />
     </RingsPageContainer>
   );
 }
@@ -114,15 +95,16 @@ const RingsPageWrapper = styled.div`
 
 const RingsBodyContainer = styled.div`
   width: 88vw;
-  height: 900px;
+  height: 899px;
 `;
 
 const RingsBodyTitle = styled.h1`
+  font-family: "Times New Roman", Times, serif;
+  font-size: 42px;
+  margin-bottom: 4px;
+  cursor: default;
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 40px;
-  height: 60px;
+  color: black;
 `;
 
 const RingsItemsContainer = styled.div`
@@ -132,10 +114,4 @@ const RingsItemsContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   border-radius: 2px solid black;
-`;
-
-const RingsItem = styled.div`
-  background-color: transparent;
-  color: black;
-  font-size: 16px;
 `;

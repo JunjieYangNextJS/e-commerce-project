@@ -22,12 +22,20 @@ export default PaginateBtn;
 export const ButtonWrapper = styled.div`
   height: 10px;
   width: auto;
+
+  gap: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 export const PageButton = styled.button`
-  font-size: 30px;
-  color: red;
+  font-size: 14px;
+  padding: 5px 8px;
+  border: 1px solid black;
+  border-radius: 3px;
+
+  :focus {
+    border-color: #e77600;
+  }
 `;

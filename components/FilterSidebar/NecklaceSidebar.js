@@ -1,7 +1,13 @@
 import React from "react";
+import FilterSidebarElements from "./FilterSidebarElements";
 
-function NecklaceSidebar() {
-  return <div></div>;
+function NecklaceSideBar({ setNecklaceStarRating, setNecklacePriceRange }) {
+  return (
+    <FilterSidebarElements
+      setLuxuryRating={setNecklaceStarRating}
+      setLuxuryPriceRange={setNecklacePriceRange}
+    />
+  );
 }
 
-export default NecklaceSidebar;
+export default NecklaceSideBar;
