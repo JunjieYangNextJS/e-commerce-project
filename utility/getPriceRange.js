@@ -8,10 +8,10 @@ export const getPriceRange = (priceRange, filteredByRating) => {
       );
     case "c":
       return filteredByRating.filter(
-        (luxury) => luxury.product.price >= 1000 && luxury.product.price < 1500
+        (luxury) => luxury.product.price >= 1000 && luxury.product.price < 2000
       );
     case "d":
-      return filteredByRating.filter((luxury) => luxury.product.price > 1500);
+      return filteredByRating.filter((luxury) => luxury.product.price >= 2000);
     default:
       return null;
   }

@@ -15,7 +15,7 @@ function FilterSidebarElements({ setLuxuryRating, setLuxuryPriceRange }) {
   const priceRangeArray = [
     "Under $500",
     "$500 to $1000",
-    "$1500 to $2000",
+    "$1000 to $2000",
     "Above $2000",
   ];
 

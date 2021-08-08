@@ -6,12 +6,10 @@ import HeroElements from "./../components/Hero/HeroElements";
 
 export default function Home({ products }) {
   return (
-    <div>
-      <Head></Head>
-
+    <>
       <Navbar />
       <HeroElements products={products} />
-    </div>
+    </>
   );
 }
 

@@ -119,7 +119,7 @@ const Navbar = () => {
             <Link href="/checkout">
               <a>Orders</a>
             </Link>
-            <Link href="/help">
+            <Link href="/about-us">
               <a>Help</a>
             </Link>
           </AccountSection>
@@ -151,6 +151,8 @@ const Logo = styled.div`
   margin-left: 20px;
 
   a {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-size: 45px;
     font-weight: 600;
     display: flex;

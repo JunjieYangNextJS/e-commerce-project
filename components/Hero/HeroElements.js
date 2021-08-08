@@ -19,14 +19,6 @@ const HeroElements = ({ products }) => {
     router.push(page);
   };
 
-  const testing = (a, b) => {
-    b.filter((m) => m[0]);
-  };
-
-  const result = testing("", [1, 2, 3]);
-
-  console.log(result);
-
   return (
     <HeroContainer>
       {clickForMore && (
