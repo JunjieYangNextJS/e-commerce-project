@@ -113,10 +113,7 @@ const Navbar = () => {
           onMouseLeave={foldAccount}
         >
           <AccountSection>
-            <Link href="/account">
-              <a>Account</a>
-            </Link>
-            <Link href="/checkout">
+            <Link href="/shoppingcart">
               <a>Orders</a>
             </Link>
             <Link href="/about-us">
@@ -276,7 +273,7 @@ export const ProductsDDLSection = styled.div`
 const AccountDropDownList = styled.div`
   position: absolute;
   z-index: 2;
-  height: 300px;
+  height: 210px;
   width: 150px;
   margin-left: 1668px;
   background-color: #2e3131;
@@ -288,7 +285,7 @@ const AccountSection = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 24px;
   padding-top: 30px;
   padding-bottom: 50px;
 
@@ -309,7 +306,7 @@ const SignOutSection = styled.div`
   cursor: pointer;
   display: flex;
   justify-content: center;
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 600;
   color: #eee;
   transition: all 0.2s ease-in-out;

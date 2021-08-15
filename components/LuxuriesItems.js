@@ -3,9 +3,27 @@ import styled from "styled-components";
 import Image from "next/image";
 import Currency from "react-currency-formatter";
 import _ from "lodash";
-import { flexbox } from "@material-ui/system";
+import { db } from "../firebase";
 
-function LuxuriesItems({ image, title, price, rating, description }) {
+function LuxuriesItems({ id, image, title, price, rating, description }) {
+  const addToCart = () => {
+    const cartItem = db.collection("cartItems").doc(id);
+    cartItem.get().then((doc) => {
+      if (doc.exists) {
+        cartItem.update({
+          quantity: doc.data().quantity + 1,
+        });
+      } else {
+        db.collection("cartItems").doc(id).set({
+          name: title,
+          image: image,
+          price: price,
+          quantity: 1,
+        });
+      }
+    });
+  };
+
   return (
     <LuxuryContainer>
       <MainContainer>
@@ -24,6 +42,7 @@ function LuxuriesItems({ image, title, price, rating, description }) {
       <TextContainer>
         <h4>{title}</h4>
         <Description>{description}</Description>
+        <AddToCartButton onClick={addToCart}>Add To Cart</AddToCartButton>
       </TextContainer>
     </LuxuryContainer>
   );
@@ -65,7 +84,18 @@ const TextContainer = styled.div`
 
 const Description = styled.p`
   text-align: center;
-  margin-bottom: -7px;
+`;
+
+const AddToCartButton = styled.div`
+  font-size: 15px;
+  border-radius: 10px;
+  line-height: 12px;
+  padding: 10px 15px;
+  color: #e5dfd9;
+  text-align: center;
+  cursor: pointer;
+  background-color: #1b1b1b;
+  border-color: #1b1b1b;
 `;
 
 const Rating = styled.div`

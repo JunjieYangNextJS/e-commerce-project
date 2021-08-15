@@ -6,9 +6,12 @@ import ReactStars from "react-rating-stars-component";
 function FilterSidebarElements({ setLuxuryRating, setLuxuryPriceRange }) {
   // handle rating
   const ratingArray = [4, 3, 2, 1];
+  const [blackHr, setBlackHr] = useState(false);
 
   const changeRating = (rating) => {
     setLuxuryRating(rating);
+    setBlackHr(!blackHr);
+    console.log(blackHr);
   };
 
   // handle price
@@ -58,7 +61,7 @@ function FilterSidebarElements({ setLuxuryRating, setLuxuryPriceRange }) {
       <ItemRatingContainer>
         {ratingArray.map((n) => (
           <ItemRatingWrapper key={n}>
-            <ItemRating onClick={() => changeRating(n)}>
+            <ItemRating blackHr={blackHr} onClick={() => changeRating(n)}>
               <ReactStars count={n} size={24} color="#ffd700" /> & Up
             </ItemRating>
             <hr />
@@ -128,17 +131,17 @@ const ItemRatingContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  hr {
-    width: 100%;
-    margin-top: 3px;
-  }
 `;
 
 const ItemRatingWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  hr {
+    width: 100%;
+    margin-top: 3px;
+  }
 `;
 
 const ItemRating = styled.div`

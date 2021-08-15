@@ -68,6 +68,7 @@ function Earrings() {
             {earringsEachPage.map(({ id, product }) => (
               <LuxuriesItems
                 key={id}
+                id={id}
                 image={product.image}
                 title={product.name}
                 price={product.price}

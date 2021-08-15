@@ -66,6 +66,7 @@ function Rings() {
             {ringsEachPage.map(({ id, product }) => (
               <LuxuriesItems
                 key={id}
+                id={id}
                 image={product.image}
                 title={product.name}
                 price={product.price}
@@ -75,6 +76,7 @@ function Rings() {
             ))}
           </RingsItemsContainer>
           <PaginateBtn
+            currentPage={ringsCurrentPage}
             setCurrentPage={setRingsCurrentPage}
             pageNumberArray={ringsPageNumberArray}
           />

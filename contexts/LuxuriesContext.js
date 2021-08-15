@@ -1,3 +1,4 @@
+import image from "next/image";
 import React, { useContext, useState, useEffect } from "react";
 import { db } from "../firebase";
 
@@ -28,7 +29,7 @@ export function LuxuriesProvider({ children }) {
     getLuxuries();
   }, []);
 
-  //   being returned for AccountProvider(main) function
+  // being returned for AccountProvider(main) function
   return (
     <LuxuriesContext.Provider value={luxuries}>
       {children}
