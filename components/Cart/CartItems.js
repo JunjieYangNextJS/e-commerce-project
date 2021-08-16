@@ -18,6 +18,8 @@ function CartItems() {
 
   const cartItemsEachPage = paginate(cartItems, cartPage, cartPageSize);
 
+  const [deleteLastPageItem, setDeleteLastPageItem] = useState(false);
+
   return (
     <CartItemsContainer>
       <CartItemsWrapper>
@@ -33,6 +35,9 @@ function CartItems() {
                 quantity={product.quantity}
                 cartItemsEachPage={cartItemsEachPage}
                 cartItems={cartItems}
+                setCartPage={setCartPage}
+                cartPage={cartPage}
+                setDeleteLastPageItem={setDeleteLastPageItem}
               />
               <hr />
             </CartItemSection>
@@ -47,6 +52,10 @@ function CartItems() {
         currentPage={cartPage}
         setCurrentPage={setCartPage}
         pageNumberArray={cartPageNumberArray}
+        deleteLastPageItem={deleteLastPageItem}
+        setDeleteLastPageItem={setDeleteLastPageItem}
+        cartItemsEachPage={cartItemsEachPage}
+        cartItems={cartItems}
       />
     </CartItemsContainer>
   );

@@ -13,6 +13,9 @@ function CartItem({
   quantity,
   cartItemsEachPage,
   cartItems,
+  setCartPage,
+  cartPage,
+  setDeleteLastPageItem,
 }) {
   let options = [];
   for (let i = 1; i < Math.max(quantity + 1, 31); i++) {
@@ -29,13 +32,11 @@ function CartItem({
       .update({ quantity: parseInt(newQuantity) });
   };
 
-  const router = useRouter();
-
   const handleItemDelete = () => {
     db.collection("cartItems").doc(id).delete();
 
-    if ((cartItemsEachPage.length === 1) & (cartItems.length !== 1)) {
-      router.reload();
+    if (cartItemsEachPage.length === 1 && cartItems.length !== 1) {
+      setDeleteLastPageItem(true);
     }
   };
 
@@ -102,6 +103,7 @@ const CartItemQuantitySelect = styled.select`
 `;
 
 const CartItemDelete = styled.button`
+  cursor: pointer;
   border: none;
   background-color: transparent;
   color: #313131;

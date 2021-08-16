@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { paginate } from "../utility/paginate";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 
-const PaginateBtn = ({ currentPage, pageNumberArray, setCurrentPage }) => {
+const PaginateBtn = ({
+  currentPage,
+  pageNumberArray,
+  setCurrentPage,
+  deleteLastPageItem,
+  setDeleteLastPageItem,
+  cartItemsEachPage,
+  cartItems,
+}) => {
   const [slicedPageNumberArray, setSlicedPageNumberArray] = useState(1);
   const slicedPageNumberSize = 3;
 
@@ -44,6 +52,17 @@ const PaginateBtn = ({ currentPage, pageNumberArray, setCurrentPage }) => {
     }
     setCurrentPage(currentPage + 1);
   };
+
+  useEffect(() => {
+    if (
+      deleteLastPageItem &&
+      cartItemsEachPage.length === 1 &&
+      cartItems.length !== 1
+    ) {
+      goToPreviousPage();
+      setDeleteLastPageItem(false);
+    }
+  }, [deleteLastPageItem]);
 
   return (
     <ButtonContainer>
@@ -97,7 +116,7 @@ const ButtonContainer = styled.div`
 
 const ButtonWrapper = styled.div`
   height: 10px;
-  width: 100px;
+  width: auto;
   gap: 3px;
   display: flex;
   align-items: center;
@@ -106,6 +125,7 @@ const ButtonWrapper = styled.div`
 
 const PageButton = styled.button`
   font-size: 14px;
+  cursor: pointer;
   padding: 5px 8px;
   border: 1px solid black;
   border-radius: 3px;
@@ -116,6 +136,7 @@ const PageButton = styled.button`
 const SwitchPageButton = styled.button`
   font-size: 14px;
   padding: 5px 6px;
+  cursor: pointer;
   border: 1px solid black;
   border-radius: 3px;
   border-color: #fff;
@@ -128,12 +149,14 @@ const SwitchPageButton = styled.button`
 const PreviousButton = styled.div`
   display: grid;
   align-content: center;
+  cursor: pointer;
   visibility: ${({ currentPage }) =>
     currentPage === 1 ? "hidden" : "default"};
 `;
 const NextButton = styled.div`
   display: grid;
   align-content: center;
+  cursor: pointer;
   visibility: ${({ currentPage, pageNumberArrayLength }) =>
     currentPage >= pageNumberArrayLength ? "hidden" : "default"};
 `;
