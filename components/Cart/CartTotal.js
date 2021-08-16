@@ -29,7 +29,7 @@ function CartTotal() {
           <CarTotalDetail>*Coupons can be applyed at checkout.</CarTotalDetail>
           <CarTotalDetail></CarTotalDetail>
         </CarTotalDetailsSection>
-        <ProceedButton>Proceed To CheckOut</ProceedButton>
+        <ProceedButton>Proceed To Checkout</ProceedButton>
       </CartTotalWrapper>
     </CartTotalContainer>
   );

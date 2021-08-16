@@ -8,6 +8,14 @@ const PaginateBtn = ({ currentPage, pageNumberArray, setCurrentPage }) => {
   const [slicedPageNumberArray, setSlicedPageNumberArray] = useState(1);
   const slicedPageNumberSize = 3;
 
+  let allPageNumberSlicesArray = [];
+  for (
+    let i = 1;
+    i <= Math.ceil(pageNumberArray.length / slicedPageNumberSize);
+    i++
+  )
+    allPageNumberSlicesArray.push(i);
+
   const pageNumberEachSlice = paginate(
     pageNumberArray,
     slicedPageNumberArray,
@@ -15,6 +23,7 @@ const PaginateBtn = ({ currentPage, pageNumberArray, setCurrentPage }) => {
   );
 
   const onSlicedPageNumberChange = () => {
+    setCurrentPage(slicedPageNumberArray * 3 + 1);
     setSlicedPageNumberArray(slicedPageNumberArray + 1);
   };
 
@@ -23,16 +32,25 @@ const PaginateBtn = ({ currentPage, pageNumberArray, setCurrentPage }) => {
   };
 
   const goToPreviousPage = () => {
+    if (currentPage % 3 === 1) {
+      setSlicedPageNumberArray(slicedPageNumberArray - 1);
+    }
     setCurrentPage(currentPage - 1);
   };
 
   const goToNextPage = () => {
+    if (currentPage % 3 === 0) {
+      setSlicedPageNumberArray(slicedPageNumberArray + 1);
+    }
     setCurrentPage(currentPage + 1);
   };
 
   return (
     <ButtonContainer>
-      <PreviousButton currentPage={currentPage} onClick={goToPreviousPage}>
+      <PreviousButton
+        currentPage={currentPage}
+        onClick={() => goToPreviousPage(currentPage)}
+      >
         <ArrowLeftIcon style={{ fontSize: 32 }} />
       </PreviousButton>
 
@@ -48,7 +66,14 @@ const PaginateBtn = ({ currentPage, pageNumberArray, setCurrentPage }) => {
               {page}
             </PageButton>
           ))}
-        <PageButton onClick={onSlicedPageNumberChange}>...</PageButton>
+        <SwitchPageButton
+          currentPage={currentPage}
+          allPageNumberSlicesArray={allPageNumberSlicesArray}
+          slicedPageNumberArray={slicedPageNumberArray}
+          onClick={onSlicedPageNumberChange}
+        >
+          ...
+        </SwitchPageButton>
       </ButtonWrapper>
 
       <NextButton
@@ -86,6 +111,18 @@ const PageButton = styled.button`
   border-radius: 3px;
   border-color: ${({ currentPage, page }) =>
     currentPage === page ? "#e77600" : "#fff"};
+`;
+
+const SwitchPageButton = styled.button`
+  font-size: 14px;
+  padding: 5px 6px;
+  border: 1px solid black;
+  border-radius: 3px;
+  border-color: #fff;
+  display: ${({ slicedPageNumberArray, allPageNumberSlicesArray }) =>
+    slicedPageNumberArray >= allPageNumberSlicesArray.length
+      ? "none"
+      : "default"};
 `;
 
 const PreviousButton = styled.div`

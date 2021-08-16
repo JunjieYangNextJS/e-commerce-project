@@ -59,6 +59,7 @@ function Bracelet() {
       <Navbar />
       <BraceletPageWrapper>
         <FilterSidebarElements
+          luxuryRating={braceletStarRating}
           setLuxuryRating={setBraceletStarRating}
           setLuxuryPriceRange={setBraceletPriceRange}
           setLuxuryCurrentPage={setBraceletCurrentPage}

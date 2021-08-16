@@ -59,6 +59,7 @@ function Earrings() {
       <Navbar />
       <EarringsPageWrapper>
         <FilterSidebarElements
+          luxuryRating={earringsStarRating}
           setLuxuryRating={setEarringsStarRating}
           setLuxuryPriceRange={setEarringsPriceRange}
           setLuxuryCurrentPage={setEarringsCurrentPage}

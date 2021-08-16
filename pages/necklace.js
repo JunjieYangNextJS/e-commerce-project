@@ -59,6 +59,7 @@ function Necklace() {
       <Navbar />
       <NecklacePageWrapper>
         <FilterSidebarElements
+          luxuryRating={necklaceStarRating}
           setLuxuryRating={setNecklaceStarRating}
           setLuxuryPriceRange={setNecklacePriceRange}
           setLuxuryCurrentPage={setNecklaceCurrentPage}
