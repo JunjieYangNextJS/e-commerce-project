@@ -21,7 +21,7 @@ function Earrings() {
     (earring) => earring.product.rating >= earringsStarRating
   );
 
-  // setState and filter  earrings depending on their price ranges
+  // setState and filter earringsFilteredByRating depending on their price ranges
   const [earringsPriceRange, setEarringsPriceRange] = useState("");
 
   const earringsFilteredByRatingAndPrice = getPriceRange(
@@ -29,7 +29,7 @@ function Earrings() {
     earringsFilteredByRating
   );
 
-  // set earrings page pagination state
+  // paginating the earrings page and displaying 4 pages at a time
   const [earringsCurrentPage, setEarringsCurrentPage] = useState(1);
 
   const pageSize = 4;

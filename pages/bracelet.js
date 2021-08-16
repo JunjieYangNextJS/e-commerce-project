@@ -21,7 +21,7 @@ function Bracelet() {
     (bracelet) => bracelet.product.rating >= braceletStarRating
   );
 
-  // setState and filter bracelet depending on their price ranges
+  // setState and filter braceletFilteredByRating depending on their price ranges
   const [braceletPriceRange, setBraceletPriceRange] = useState("");
 
   const braceletFilteredByRatingAndPrice = getPriceRange(
@@ -29,7 +29,7 @@ function Bracelet() {
     braceletFilteredByRating
   );
 
-  // set bracelet page pagination state
+  // paginating the bracelet page and displaying 4 pages at a time
   const [braceletCurrentPage, setBraceletCurrentPage] = useState(1);
 
   const pageSize = 4;

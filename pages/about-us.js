@@ -49,11 +49,11 @@ export default function AboutUs() {
             <AboutUsHelpInfo>
               For Technical Difficulties: 925-xxx-xxxx
             </AboutUsHelpInfo>
-            <HelpHours>
+            <p>
               Our Client Advisors are available Monday through Saturday, 9:00AM
               - 11:00PM (EST) and Sunday, 10:00AM - 9:00PM (EST), excluding
               holidays.
-            </HelpHours>
+            </p>
           </AboutUsHelpSection>
         </AboutUsHelpContainer>
       </AboutUsHelpPage>
@@ -105,5 +105,3 @@ const AboutUsImage = styled.div`
 const HelpImage = styled.div`
   box-shadow: -14px 14px 2px #303030;
 `;
-
-const HelpHours = styled.p``;

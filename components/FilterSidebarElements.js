@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import ReactStars from "react-rating-stars-component";
 
+// defining price range array
+export const priceRangeArray = [
+  "Under $500",
+  "$500 to $1000",
+  "$1000 to $2000",
+  "Above $2000",
+];
+
 function FilterSidebarElements({
   luxuryRating,
   setLuxuryRating,
   setLuxuryPriceRange,
   setLuxuryCurrentPage,
 }) {
-  // handle rating
+  // handle rating change
   const ratingArray = [4, 3, 2, 1];
 
   const changeRating = (rating) => {
@@ -16,29 +24,9 @@ function FilterSidebarElements({
     setLuxuryCurrentPage(1);
   };
 
-  // handle price
-  const priceRangeArray = [
-    "Under $500",
-    "$500 to $1000",
-    "$1000 to $2000",
-    "Above $2000",
-  ];
-
-  const changePriceRange = (index) => {
-    switch (index) {
-      case 0:
-        setLuxuryPriceRange("a");
-        break;
-      case 1:
-        setLuxuryPriceRange("b");
-        break;
-      case 2:
-        setLuxuryPriceRange("c");
-        break;
-      case 3:
-        setLuxuryPriceRange("d");
-        break;
-    }
+  // handle price range change
+  const changePriceRange = (range) => {
+    setLuxuryPriceRange(range);
     setLuxuryCurrentPage(1);
   };
 
@@ -55,7 +43,7 @@ function FilterSidebarElements({
         </ResetItemPrice>
         {priceRangeArray.map((range, index) => (
           <ItemPriceWrapper key={index}>
-            <ItemPrice onClick={() => changePriceRange(index)}>
+            <ItemPrice onClick={() => changePriceRange(range)}>
               {range}
             </ItemPrice>
             <hr />

@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useRouter } from "next/router";
+import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { db } from "../../firebase";
@@ -13,10 +12,9 @@ function CartItem({
   quantity,
   cartItemsEachPage,
   cartItems,
-  setCartPage,
-  cartPage,
   setDeleteLastPageItem,
 }) {
+  // supply and change value for CartItemQuantitySelect
   let options = [];
   for (let i = 1; i < Math.max(quantity + 1, 31); i++) {
     options.push(
@@ -32,6 +30,7 @@ function CartItem({
       .update({ quantity: parseInt(newQuantity) });
   };
 
+  // handle delete cartItem and change delete state for pagination re-rendering
   const handleItemDelete = () => {
     db.collection("cartItems").doc(id).delete();
 

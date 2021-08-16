@@ -21,7 +21,7 @@ function Necklace() {
     (necklace) => necklace.product.rating >= necklaceStarRating
   );
 
-  // setState and filter necklace depending on their price ranges
+  // setState and filter necklaceFilteredByRating depending on their price ranges
   const [necklacePriceRange, setNecklacePriceRange] = useState("");
 
   const necklaceFilteredByRatingAndPrice = getPriceRange(
@@ -29,7 +29,7 @@ function Necklace() {
     necklaceFilteredByRating
   );
 
-  // set necklace page pagination state
+  // paginating the necklace page and displaying 4 pages at a time
   const [necklaceCurrentPage, setNecklaceCurrentPage] = useState(1);
 
   const pageSize = 4;

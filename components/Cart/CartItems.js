@@ -6,6 +6,7 @@ import { paginate } from "../../utility/paginate";
 import { useCartItems } from "../../contexts/CartItemsContext";
 
 function CartItems() {
+  // get cartItems and display cartItems on each page
   const cartItems = useCartItems();
 
   const [cartPage, setCartPage] = useState(1);
@@ -18,6 +19,7 @@ function CartItems() {
 
   const cartItemsEachPage = paginate(cartItems, cartPage, cartPageSize);
 
+  // defining state for pagination re-rendering after items get deleted
   const [deleteLastPageItem, setDeleteLastPageItem] = useState(false);
 
   return (

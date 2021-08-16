@@ -13,26 +13,27 @@ const PaginateBtn = ({
   cartItemsEachPage,
   cartItems,
 }) => {
-  const [slicedPageNumberArray, setSlicedPageNumberArray] = useState(1);
-  const slicedPageNumberSize = 3;
+  // paginating the pagination bar and displaying 3 pages at a time
+  const [slicedPaginationBar, setSlicedPaginationBar] = useState(1);
+  const numberOfPagesPerSlice = 3;
 
-  let allPageNumberSlicesArray = [];
+  let allSlicedPaginationBars = [];
   for (
     let i = 1;
-    i <= Math.ceil(pageNumberArray.length / slicedPageNumberSize);
+    i <= Math.ceil(pageNumberArray.length / numberOfPagesPerSlice);
     i++
   )
-    allPageNumberSlicesArray.push(i);
+    allSlicedPaginationBars.push(i);
 
-  const pageNumberEachSlice = paginate(
+  const renderedPagesPerSlice = paginate(
     pageNumberArray,
-    slicedPageNumberArray,
-    slicedPageNumberSize
+    slicedPaginationBar,
+    numberOfPagesPerSlice
   );
 
-  const onSlicedPageNumberChange = () => {
-    setCurrentPage(slicedPageNumberArray * 3 + 1);
-    setSlicedPageNumberArray(slicedPageNumberArray + 1);
+  const goToNextSlicedPaginationBar = () => {
+    setCurrentPage(slicedPaginationBar * 3 + 1);
+    setSlicedPaginationBar(slicedPaginationBar + 1);
   };
 
   const onPageChange = (page) => {
@@ -41,24 +42,21 @@ const PaginateBtn = ({
 
   const goToPreviousPage = () => {
     if (currentPage % 3 === 1) {
-      setSlicedPageNumberArray(slicedPageNumberArray - 1);
+      setSlicedPaginationBar(slicedPaginationBar - 1);
     }
     setCurrentPage(currentPage - 1);
   };
 
   const goToNextPage = () => {
     if (currentPage % 3 === 0) {
-      setSlicedPageNumberArray(slicedPageNumberArray + 1);
+      setSlicedPaginationBar(slicedPaginationBar + 1);
     }
     setCurrentPage(currentPage + 1);
   };
 
+  // update three states after the last page-item gets deleted
   useEffect(() => {
-    if (
-      deleteLastPageItem &&
-      cartItemsEachPage.length === 1 &&
-      cartItems.length !== 1
-    ) {
+    if (deleteLastPageItem) {
       goToPreviousPage();
       setDeleteLastPageItem(false);
     }
@@ -66,16 +64,13 @@ const PaginateBtn = ({
 
   return (
     <ButtonContainer>
-      <PreviousButton
-        currentPage={currentPage}
-        onClick={() => goToPreviousPage(currentPage)}
-      >
+      <PreviousButton currentPage={currentPage} onClick={goToPreviousPage}>
         <ArrowLeftIcon style={{ fontSize: 32 }} />
       </PreviousButton>
 
-      <ButtonWrapper>
+      <PageButtonsWrapper>
         {pageNumberArray.length !== 1 &&
-          pageNumberEachSlice.map((page) => (
+          renderedPagesPerSlice.map((page) => (
             <PageButton
               key={page}
               page={page}
@@ -85,19 +80,19 @@ const PaginateBtn = ({
               {page}
             </PageButton>
           ))}
-        <SwitchPageButton
+        <GoToNextSliceButton
           currentPage={currentPage}
-          allPageNumberSlicesArray={allPageNumberSlicesArray}
-          slicedPageNumberArray={slicedPageNumberArray}
-          onClick={onSlicedPageNumberChange}
+          allSlicedPaginationBars={allSlicedPaginationBars}
+          slicedPaginationBar={slicedPaginationBar}
+          onClick={goToNextSlicedPaginationBar}
         >
           ...
-        </SwitchPageButton>
-      </ButtonWrapper>
+        </GoToNextSliceButton>
+      </PageButtonsWrapper>
 
       <NextButton
         currentPage={currentPage}
-        pageNumberArrayLength={pageNumberArray.length}
+        pageNumberArray={pageNumberArray}
         onClick={goToNextPage}
       >
         <ArrowRightIcon style={{ fontSize: 32 }} />
@@ -114,7 +109,7 @@ const ButtonContainer = styled.div`
   justify-content: center;
 `;
 
-const ButtonWrapper = styled.div`
+const PageButtonsWrapper = styled.div`
   height: 10px;
   width: auto;
   gap: 3px;
@@ -133,17 +128,15 @@ const PageButton = styled.button`
     currentPage === page ? "#e77600" : "#fff"};
 `;
 
-const SwitchPageButton = styled.button`
+const GoToNextSliceButton = styled.button`
   font-size: 14px;
   padding: 5px 6px;
   cursor: pointer;
   border: 1px solid black;
   border-radius: 3px;
   border-color: #fff;
-  display: ${({ slicedPageNumberArray, allPageNumberSlicesArray }) =>
-    slicedPageNumberArray >= allPageNumberSlicesArray.length
-      ? "none"
-      : "default"};
+  display: ${({ slicedPaginationBar, allSlicedPaginationBars }) =>
+    slicedPaginationBar >= allSlicedPaginationBars.length ? "none" : "default"};
 `;
 
 const PreviousButton = styled.div`
@@ -157,6 +150,6 @@ const NextButton = styled.div`
   display: grid;
   align-content: center;
   cursor: pointer;
-  visibility: ${({ currentPage, pageNumberArrayLength }) =>
-    currentPage >= pageNumberArrayLength ? "hidden" : "default"};
+  visibility: ${({ currentPage, pageNumberArray }) =>
+    currentPage >= pageNumberArray.length ? "hidden" : "default"};
 `;

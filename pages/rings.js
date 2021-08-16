@@ -19,7 +19,7 @@ function Rings() {
     (ring) => ring.product.rating >= ringsStarRating
   );
 
-  // setState and filter rings depending on their price ranges
+  // setState and filter ringsFilteredByRating depending on their price ranges
   const [ringsPriceRange, setRingsPriceRange] = useState("");
 
   const ringsFilteredByRatingAndPrice = getPriceRange(
@@ -27,7 +27,7 @@ function Rings() {
     ringsFilteredByRating
   );
 
-  // set rings page pagination state
+  // paginating the rings page and displaying 4 pages at a time
   const [ringsCurrentPage, setRingsCurrentPage] = useState(1);
 
   const pageSize = 4;
@@ -44,6 +44,7 @@ function Rings() {
   )
     ringsPageNumberArray.push(i);
 
+  // paginating in action
   const ringsEachPage = paginate(
     ringsFilteredByRatingAndPrice
       ? ringsFilteredByRatingAndPrice
@@ -51,8 +52,6 @@ function Rings() {
     ringsCurrentPage,
     pageSize
   );
-
-  console.log(ringsEachPage);
 
   return (
     <RingsPageContainer>
@@ -64,10 +63,6 @@ function Rings() {
           setLuxuryPriceRange={setRingsPriceRange}
           setLuxuryCurrentPage={setRingsCurrentPage}
         />
-        {/* <RingsSidebar
-          setRingsStarRating={setRingsStarRating}
-          setRingsPriceRange={setRingsPriceRange}
-        /> */}
         <RingsBodyContainer>
           <RingsBodyTitle>Our Exclusive Rings</RingsBodyTitle>
           <RingsItemsContainer>
