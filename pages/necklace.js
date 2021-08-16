@@ -6,7 +6,7 @@ import { paginate } from "../utility/paginate";
 import { getPriceRange } from "../utility/getPriceRange";
 import { useLuxuries } from "../contexts/LuxuriesContext";
 import LuxuriesItems from "../components/LuxuriesItems";
-import NecklaceSidebar from "../components/FilterSidebar/NecklaceSidebar";
+import FilterSidebarElements from "../components/FilterSidebarElements";
 
 function Necklace() {
   // get data for necklace
@@ -58,9 +58,10 @@ function Necklace() {
     <NecklacePageContainer>
       <Navbar />
       <NecklacePageWrapper>
-        <NecklaceSidebar
-          setNecklaceStarRating={setNecklaceStarRating}
-          setNecklacePriceRange={setNecklacePriceRange}
+        <FilterSidebarElements
+          setLuxuryRating={setNecklaceStarRating}
+          setLuxuryPriceRange={setNecklacePriceRange}
+          setLuxuryCurrentPage={setNecklaceCurrentPage}
         />
         <NecklaceBodyContainer>
           <NecklaceBodyTitle>Our Exclusive Necklace</NecklaceBodyTitle>
@@ -78,6 +79,7 @@ function Necklace() {
             ))}
           </NecklaceItemsContainer>
           <PaginateBtn
+            currentPage={necklaceCurrentPage}
             setCurrentPage={setNecklaceCurrentPage}
             pageNumberArray={necklacePageNumberArray}
           />

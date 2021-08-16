@@ -6,7 +6,7 @@ import { paginate } from "../utility/paginate";
 import { getPriceRange } from "../utility/getPriceRange";
 import { useLuxuries } from "../contexts/LuxuriesContext";
 import LuxuriesItems from "../components/LuxuriesItems";
-import EarringsSidebar from "../components/FilterSidebar/EarringsSidebar";
+import FilterSidebarElements from "../components/FilterSidebarElements";
 
 function Earrings() {
   // get data for earrings
@@ -58,9 +58,10 @@ function Earrings() {
     <EarringsPageContainer>
       <Navbar />
       <EarringsPageWrapper>
-        <EarringsSidebar
-          setEarringsStarRating={setEarringsStarRating}
-          setEarringsPriceRange={setEarringsPriceRange}
+        <FilterSidebarElements
+          setLuxuryRating={setEarringsStarRating}
+          setLuxuryPriceRange={setEarringsPriceRange}
+          setLuxuryCurrentPage={setEarringsCurrentPage}
         />
         <EarringsBodyContainer>
           <EarringsBodyTitle>Our Exclusive Earrings</EarringsBodyTitle>
@@ -78,6 +79,7 @@ function Earrings() {
             ))}
           </EarringsItemsContainer>
           <PaginateBtn
+            currentPage={earringsCurrentPage}
             setCurrentPage={setEarringsCurrentPage}
             pageNumberArray={earringsPageNumberArray}
           />

@@ -6,7 +6,7 @@ import { paginate } from "../utility/paginate";
 import { getPriceRange } from "../utility/getPriceRange";
 import { useLuxuries } from "../contexts/LuxuriesContext";
 import LuxuriesItems from "../components/LuxuriesItems";
-import RingsSidebar from "../components/FilterSidebar/RingsSidebar";
+import FilterSidebarElements from "../components/FilterSidebarElements";
 
 function Rings() {
   // get data for rings
@@ -52,14 +52,22 @@ function Rings() {
     pageSize
   );
 
+  console.log(ringsEachPage);
+
   return (
     <RingsPageContainer>
       <Navbar />
       <RingsPageWrapper>
-        <RingsSidebar
+        <FilterSidebarElements
+          luxuryRating={ringsStarRating}
+          setLuxuryRating={setRingsStarRating}
+          setLuxuryPriceRange={setRingsPriceRange}
+          setLuxuryCurrentPage={setRingsCurrentPage}
+        />
+        {/* <RingsSidebar
           setRingsStarRating={setRingsStarRating}
           setRingsPriceRange={setRingsPriceRange}
-        />
+        /> */}
         <RingsBodyContainer>
           <RingsBodyTitle>Our Exclusive Rings</RingsBodyTitle>
           <RingsItemsContainer>

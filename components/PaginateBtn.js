@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { paginate } from "../utility/paginate";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 
 const PaginateBtn = ({ currentPage, pageNumberArray, setCurrentPage }) => {
+  const [slicedPageNumberArray, setSlicedPageNumberArray] = useState(1);
+  const slicedPageNumberSize = 3;
+
+  const pageNumberEachSlice = paginate(
+    pageNumberArray,
+    slicedPageNumberArray,
+    slicedPageNumberSize
+  );
+
+  const onSlicedPageNumberChange = () => {
+    setSlicedPageNumberArray(slicedPageNumberArray + 1);
+  };
+
   const onPageChange = (page) => {
     setCurrentPage(page);
   };
@@ -18,25 +32,32 @@ const PaginateBtn = ({ currentPage, pageNumberArray, setCurrentPage }) => {
 
   return (
     <ButtonContainer>
-      {/* {currentPage !== 1 && (
-        <PreviousButton onClick={goToPreviousPage}>
-          <ArrowLeftIcon style={{ fontSize: 32 }} />
-        </PreviousButton>
-      )} */}
+      <PreviousButton currentPage={currentPage} onClick={goToPreviousPage}>
+        <ArrowLeftIcon style={{ fontSize: 32 }} />
+      </PreviousButton>
+
       <ButtonWrapper>
         {pageNumberArray.length !== 1 &&
-          pageNumberArray.map((page) => (
-            <PageButton key={page} onClick={() => onPageChange(page)}>
+          pageNumberEachSlice.map((page) => (
+            <PageButton
+              key={page}
+              page={page}
+              currentPage={currentPage}
+              onClick={() => onPageChange(page)}
+            >
               {page}
             </PageButton>
           ))}
+        <PageButton onClick={onSlicedPageNumberChange}>...</PageButton>
       </ButtonWrapper>
 
-      {/* {currentPage !== pageNumberArray.length && (
-        <NextButton onClick={goToNextPage}>
-          <ArrowRightIcon style={{ fontSize: 32 }} />
-        </NextButton>
-      )} */}
+      <NextButton
+        currentPage={currentPage}
+        pageNumberArrayLength={pageNumberArray.length}
+        onClick={goToNextPage}
+      >
+        <ArrowRightIcon style={{ fontSize: 32 }} />
+      </NextButton>
     </ButtonContainer>
   );
 };
@@ -47,12 +68,11 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
 `;
 
 const ButtonWrapper = styled.div`
   height: 10px;
-  width: auto;
+  width: 100px;
   gap: 3px;
   display: flex;
   align-items: center;
@@ -64,11 +84,19 @@ const PageButton = styled.button`
   padding: 5px 8px;
   border: 1px solid black;
   border-radius: 3px;
-
-  :focus {
-    border-color: #e77600;
-  }
+  border-color: ${({ currentPage, page }) =>
+    currentPage === page ? "#e77600" : "#fff"};
 `;
 
-const PreviousButton = styled.div``;
-const NextButton = styled.div``;
+const PreviousButton = styled.div`
+  display: grid;
+  align-content: center;
+  visibility: ${({ currentPage }) =>
+    currentPage === 1 ? "hidden" : "default"};
+`;
+const NextButton = styled.div`
+  display: grid;
+  align-content: center;
+  visibility: ${({ currentPage, pageNumberArrayLength }) =>
+    currentPage >= pageNumberArrayLength ? "hidden" : "default"};
+`;

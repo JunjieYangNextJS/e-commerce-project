@@ -44,8 +44,9 @@ function CartItems() {
         )}
       </CartItemsWrapper>
       <PaginateBtn
-        pageNumberArray={cartPageNumberArray}
+        currentPage={cartPage}
         setCurrentPage={setCartPage}
+        pageNumberArray={cartPageNumberArray}
       />
     </CartItemsContainer>
   );

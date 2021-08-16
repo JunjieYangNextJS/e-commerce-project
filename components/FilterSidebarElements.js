@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import StarIcon from "@material-ui/icons/Star";
 import ReactStars from "react-rating-stars-component";
 
-function FilterSidebarElements({ setLuxuryRating, setLuxuryPriceRange }) {
+function FilterSidebarElements({
+  luxuryRating,
+  setLuxuryRating,
+  setLuxuryPriceRange,
+  setLuxuryCurrentPage,
+}) {
   // handle rating
   const ratingArray = [4, 3, 2, 1];
-  const [blackHr, setBlackHr] = useState(false);
 
   const changeRating = (rating) => {
     setLuxuryRating(rating);
-    setBlackHr(!blackHr);
-    console.log(blackHr);
+    setLuxuryCurrentPage(1);
   };
 
   // handle price
@@ -37,10 +39,12 @@ function FilterSidebarElements({ setLuxuryRating, setLuxuryPriceRange }) {
         setLuxuryPriceRange("d");
         break;
     }
+    setLuxuryCurrentPage(1);
   };
 
   const resetPriceRange = () => {
     setLuxuryPriceRange("");
+    setLuxuryCurrentPage(1);
   };
 
   return (
@@ -61,7 +65,11 @@ function FilterSidebarElements({ setLuxuryRating, setLuxuryPriceRange }) {
       <ItemRatingContainer>
         {ratingArray.map((n) => (
           <ItemRatingWrapper key={n}>
-            <ItemRating blackHr={blackHr} onClick={() => changeRating(n)}>
+            <ItemRating
+              currentRating={n}
+              luxuryRating={luxuryRating}
+              onClick={() => changeRating(n)}
+            >
               <ReactStars count={n} size={24} color="#ffd700" /> & Up
             </ItemRating>
             <hr />
@@ -77,7 +85,7 @@ export default FilterSidebarElements;
 const FilterSidebarContainer = styled.div`
   width: 12vw;
   background: #a6a6a6;
-  height: 899px;
+  height: 915px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -149,4 +157,6 @@ const ItemRating = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 13px;
+  font-weight: ${({ luxuryRating, currentRating }) =>
+    luxuryRating === currentRating ? "700" : "default"};
 `;

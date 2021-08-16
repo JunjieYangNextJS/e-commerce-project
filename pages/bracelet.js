@@ -6,7 +6,7 @@ import { paginate } from "../utility/paginate";
 import { getPriceRange } from "../utility/getPriceRange";
 import { useLuxuries } from "../contexts/LuxuriesContext";
 import LuxuriesItems from "../components/LuxuriesItems";
-import BraceletSidebar from "../components/FilterSidebar/BraceletSidebar";
+import FilterSidebarElements from "../components/FilterSidebarElements";
 
 function Bracelet() {
   // get data for bracelet
@@ -58,9 +58,10 @@ function Bracelet() {
     <BraceletPageContainer>
       <Navbar />
       <BraceletPageWrapper>
-        <BraceletSidebar
-          setBraceletStarRating={setBraceletStarRating}
-          setBraceletPriceRange={setBraceletPriceRange}
+        <FilterSidebarElements
+          setLuxuryRating={setBraceletStarRating}
+          setLuxuryPriceRange={setBraceletPriceRange}
+          setLuxuryCurrentPage={setBraceletCurrentPage}
         />
         <BraceletBodyContainer>
           <BraceletBodyTitle>Our Exclusive Bracelet</BraceletBodyTitle>
@@ -78,6 +79,7 @@ function Bracelet() {
             ))}
           </BraceletItemsContainer>
           <PaginateBtn
+            currentPage={braceletCurrentPage}
             setCurrentPage={setBraceletCurrentPage}
             pageNumberArray={braceletPageNumberArray}
           />
