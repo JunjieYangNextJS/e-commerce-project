@@ -15,11 +15,22 @@ function Necklace() {
     (luxury) => luxury.product.type === "necklace"
   );
 
+  // setState and filter rings depending on searchQuery
+  const [necklaceSearchQuery, setNecklaceSearchQuery] = useState("");
+
+  const necklaceFilteredBySearch = allNecklace.filter((necklace) => {
+    return (
+      necklace.product.name
+        .toLowerCase()
+        .search(necklaceSearchQuery.toLowerCase()) != -1
+    );
+  });
+
   // setState and filter necklace depending on their ratings
   const [necklaceStarRating, setNecklaceStarRating] = useState(1);
-  const necklaceFilteredByRating = allNecklace.filter(
-    (necklace) => necklace.product.rating >= necklaceStarRating
-  );
+  const necklaceFilteredByRating = (
+    necklaceFilteredBySearch ? necklaceFilteredBySearch : allNecklace
+  ).filter((necklace) => necklace.product.rating >= necklaceStarRating);
 
   // setState and filter necklaceFilteredByRating depending on their price ranges
   const [necklacePriceRange, setNecklacePriceRange] = useState("");
@@ -56,7 +67,10 @@ function Necklace() {
 
   return (
     <NecklacePageContainer>
-      <Navbar />
+      <Navbar
+        searchQuery={necklaceSearchQuery}
+        setSearchQuery={setNecklaceSearchQuery}
+      />
       <NecklacePageWrapper>
         <FilterSidebarElements
           luxuryRating={necklaceStarRating}

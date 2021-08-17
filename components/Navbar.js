@@ -14,8 +14,9 @@ import {
   useProductsDDLShow,
   useProductsDDLFold,
 } from "../contexts/ProductsDDLContext";
+import SearchBox from "./SearchBox";
 
-const Navbar = () => {
+const Navbar = ({ searchQuery, setSearchQuery }) => {
   // handle Login Session
   const [session] = useSession();
 
@@ -31,6 +32,10 @@ const Navbar = () => {
 
   const directToPage = (page) => {
     router.push(page);
+  };
+
+  const handleSearchQuery = (newSearchQuery) => {
+    setSearchQuery(newSearchQuery);
   };
 
   return (
@@ -57,7 +62,7 @@ const Navbar = () => {
           </Link>
         </NavigatorSection>
         <SearchBarContainer>
-          <SearchBar type="text" />
+          <SearchBox value={searchQuery} onChange={handleSearchQuery} />
           <SearchIconWrapper>
             <SearchIcon style={{ cursor: "pointer" }} />
           </SearchIconWrapper>
@@ -196,13 +201,6 @@ const SearchBarContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-left: 180px;
-`;
-
-const SearchBar = styled.input`
-  width: 600px;
-  height: 30px;
-  border: none;
-  outline: none;
 `;
 
 const SearchIconWrapper = styled.div`

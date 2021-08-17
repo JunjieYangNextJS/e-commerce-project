@@ -15,11 +15,22 @@ function Bracelet() {
     (luxury) => luxury.product.type === "bracelet"
   );
 
+  // setState and filter rings depending on searchQuery
+  const [braceletSearchQuery, setBraceletSearchQuery] = useState("");
+
+  const braceletFilteredBySearch = allBracelet.filter((bracelet) => {
+    return (
+      bracelet.product.name
+        .toLowerCase()
+        .search(braceletSearchQuery.toLowerCase()) != -1
+    );
+  });
+
   // setState and filter bracelet depending on their ratings
   const [braceletStarRating, setBraceletStarRating] = useState(1);
-  const braceletFilteredByRating = allBracelet.filter(
-    (bracelet) => bracelet.product.rating >= braceletStarRating
-  );
+  const braceletFilteredByRating = (
+    braceletFilteredBySearch ? braceletFilteredBySearch : allBracelet
+  ).filter((bracelet) => bracelet.product.rating >= braceletStarRating);
 
   // setState and filter braceletFilteredByRating depending on their price ranges
   const [braceletPriceRange, setBraceletPriceRange] = useState("");
@@ -56,7 +67,10 @@ function Bracelet() {
 
   return (
     <BraceletPageContainer>
-      <Navbar />
+      <Navbar
+        searchQuery={braceletSearchQuery}
+        setSearchQuery={setBraceletSearchQuery}
+      />
       <BraceletPageWrapper>
         <FilterSidebarElements
           luxuryRating={braceletStarRating}

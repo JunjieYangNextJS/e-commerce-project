@@ -13,11 +13,21 @@ function Rings() {
   const luxuries = useLuxuries();
   const allRings = luxuries.filter((luxury) => luxury.product.type === "rings");
 
+  // setState and filter rings depending on searchQuery
+  const [ringsSearchQuery, setRingsSearchQuery] = useState("");
+
+  const ringsFilteredBySearch = allRings.filter((ring) => {
+    return (
+      ring.product.name.toLowerCase().search(ringsSearchQuery.toLowerCase()) !=
+      -1
+    );
+  });
+
   // setState and filter rings depending on their ratings
   const [ringsStarRating, setRingsStarRating] = useState(1);
-  const ringsFilteredByRating = allRings.filter(
-    (ring) => ring.product.rating >= ringsStarRating
-  );
+  const ringsFilteredByRating = (
+    ringsFilteredBySearch ? ringsFilteredBySearch : allRings
+  ).filter((ring) => ring.product.rating >= ringsStarRating);
 
   // setState and filter ringsFilteredByRating depending on their price ranges
   const [ringsPriceRange, setRingsPriceRange] = useState("");
@@ -55,7 +65,10 @@ function Rings() {
 
   return (
     <RingsPageContainer>
-      <Navbar />
+      <Navbar
+        searchQuery={ringsSearchQuery}
+        setSearchQuery={setRingsSearchQuery}
+      />
       <RingsPageWrapper>
         <FilterSidebarElements
           luxuryRating={ringsStarRating}

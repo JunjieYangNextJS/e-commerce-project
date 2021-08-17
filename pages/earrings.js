@@ -15,11 +15,22 @@ function Earrings() {
     (luxury) => luxury.product.type === "earrings"
   );
 
+  // setState and filter rings depending on searchQuery
+  const [earringsSearchQuery, setEarringsSearchQuery] = useState("");
+
+  const earringsFilteredBySearch = allEarrings.filter((earrings) => {
+    return (
+      earrings.product.name
+        .toLowerCase()
+        .search(earringsSearchQuery.toLowerCase()) != -1
+    );
+  });
+
   // setState and filter earrings depending on their ratings
   const [earringsStarRating, setEarringsStarRating] = useState(1);
-  const earringsFilteredByRating = allEarrings.filter(
-    (earring) => earring.product.rating >= earringsStarRating
-  );
+  const earringsFilteredByRating = (
+    earringsFilteredBySearch ? earringsFilteredBySearch : allEarrings
+  ).filter((earrings) => earrings.product.rating >= earringsStarRating);
 
   // setState and filter earringsFilteredByRating depending on their price ranges
   const [earringsPriceRange, setEarringsPriceRange] = useState("");
@@ -56,7 +67,10 @@ function Earrings() {
 
   return (
     <EarringsPageContainer>
-      <Navbar />
+      <Navbar
+        searchQuery={earringsSearchQuery}
+        setSearchQuery={setEarringsSearchQuery}
+      />
       <EarringsPageWrapper>
         <FilterSidebarElements
           luxuryRating={earringsStarRating}
