@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
 import PaginateBtn from "../components/PaginateBtn";
 import { paginate } from "../utility/paginate";
 import { getPriceRange } from "../utility/getPriceRange";
 import { useLuxuries } from "../contexts/LuxuriesContext";
 import LuxuriesItems from "../components/LuxuriesItems";
 import FilterSidebarElements from "../components/FilterSidebarElements";
+import NavbarWithSearch from "../components/Navbars/NavbarWithSearch";
 
 function Necklace() {
   // get data for necklace
@@ -67,7 +67,7 @@ function Necklace() {
 
   return (
     <NecklacePageContainer>
-      <Navbar
+      <NavbarWithSearch
         searchQuery={necklaceSearchQuery}
         setSearchQuery={setNecklaceSearchQuery}
       />

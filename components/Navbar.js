@@ -15,6 +15,7 @@ import {
   useProductsDDLFold,
 } from "../contexts/ProductsDDLContext";
 import SearchBox from "./SearchBox";
+import { useLuxuries } from "../contexts/LuxuriesContext";
 
 const Navbar = ({ searchQuery, setSearchQuery }) => {
   // handle Login Session
