@@ -71,7 +71,7 @@ function Bracelet() {
         searchQuery={braceletSearchQuery}
         setSearchQuery={setBraceletSearchQuery}
       />
-      <BraceletPageWrapper>
+      {/* <BraceletPageWrapper>
         <FilterSidebarElements
           luxuryRating={braceletStarRating}
           setLuxuryRating={setBraceletStarRating}
@@ -99,7 +99,7 @@ function Bracelet() {
             pageNumberArray={braceletPageNumberArray}
           />
         </BraceletBodyContainer>
-      </BraceletPageWrapper>
+      </BraceletPageWrapper> */}
     </BraceletPageContainer>
   );
 }

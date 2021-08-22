@@ -4,8 +4,11 @@ import Link from "next/link";
 import router from "next/router";
 import SearchIcon from "@material-ui/icons/Search";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
+import MenuIcon from "@material-ui/icons/Menu";
+import CloseIcon from "@material-ui/icons/Close";
 import { signIn, signOut, useSession } from "next-auth/client";
 import SearchBox from "./../SearchBox";
+import NavMenuExpanded from "./NavMenuExpanded";
 import { useLuxuriesTypes } from "../../contexts/LuxuriesContext";
 import { useCartItemsGetQuantity } from "../../contexts/CartItemsContext";
 
@@ -45,16 +48,23 @@ const NavbarWithSearch = ({ searchQuery, setSearchQuery }) => {
     router.push(`/${page}`);
   };
 
+  // handle filtering items by name in this page and direct user to other page when click search icon
   const handleSearchQuery = (newSearchQuery) => {
     setSearchQuery(newSearchQuery);
   };
 
-  const handleSearchClick = () => {
+  const handleSearchIcon = () => {
     luxuryTypes.map((luxuryType) => {
-      if (luxuryType.startsWith(searchQuery)) {
+      if (luxuryType.startsWith(searchQuery.toLowerCase())) {
         directToPage(luxuryType);
       }
     });
+  };
+
+  const [expandNavMenu, setExpandNavMenu] = useState(false);
+
+  const handleNavMenuExpanded = () => {
+    setExpandNavMenu(!expandNavMenu);
   };
 
   return (
@@ -98,7 +108,7 @@ const NavbarWithSearch = ({ searchQuery, setSearchQuery }) => {
         </NavToPagesWrapper>
         <SearchBarContainer>
           <SearchBox value={searchQuery} onChange={handleSearchQuery} />
-          <SearchIconWrapper onClick={handleSearchClick}>
+          <SearchIconWrapper onClick={handleSearchIcon}>
             <SearchIcon style={{ cursor: "pointer" }} />
           </SearchIconWrapper>
         </SearchBarContainer>
@@ -128,12 +138,26 @@ const NavbarWithSearch = ({ searchQuery, setSearchQuery }) => {
             </UserAccessBody>
           </UserAccessSection>
           {session && (
-            <ShoppingBag onClick={() => directToPage("/shopping-cart")}>
-              <LocalMallIcon style={{ fontSize: 28 }} />
+            <ShoppingBag onClick={() => router.push("/shopping-cart")}>
+              <LocalMallIcon />
+
               <ItemCount>{getCartItemsQuantity()}</ItemCount>
             </ShoppingBag>
           )}
         </UserAccessWrapper>
+        <MenuIconWrapper onClick={handleNavMenuExpanded}>
+          {!expandNavMenu ? (
+            <MenuIcon style={{ fontSize: 31 }} />
+          ) : (
+            <CloseIcon style={{ fontSize: 31 }} />
+          )}
+        </MenuIconWrapper>
+
+        <NavMenuExpanded
+          router={router}
+          directToPage={directToPage}
+          expandNavMenu={expandNavMenu}
+        />
       </Nav>
     </>
   );
@@ -146,6 +170,7 @@ const Nav = styled.nav`
   color: white;
   background: #95a5a6;
   display: flex;
+  position: relative;
   align-items: center;
 `;
 
@@ -153,12 +178,26 @@ const Logo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 10%;
+  position: relative;
+  bottom: 3px;
+  width: 10vw;
+  font-size: 45px;
+
+  @media all and (max-width: 1125px) {
+    width: 15vw;
+
+    font-size: 32px;
+  }
+
+  @media all and (max-width: 728px) {
+    width: 20vw;
+    font-size: 30px;
+  }
 
   a {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    font-size: 45px;
+
     font-weight: 600;
     display: flex;
   }
@@ -172,7 +211,7 @@ const StyledP = styled.p`
 
 const NavToPagesWrapper = styled.ul`
   display: flex;
-  width: 35%;
+  width: 35vw;
   justify-content: center;
   align-items: center;
   padding: 0;
@@ -180,13 +219,26 @@ const NavToPagesWrapper = styled.ul`
   gap: 60px;
   height: 70px;
   list-style: none;
+  font-size: 26px;
+
+  @media all and (max-width: 1330px) {
+    width: 48vw;
+  }
+
+  @media all and (max-width: 1125px) {
+    gap: 30px;
+    font-size: 22px;
+  }
+
+  @media all and (max-width: 728px) {
+    display: none;
+  }
 `;
 
 const NavToPagesSection = styled.li`
   display: flex;
-  /* align-items: center; */
   justify-content: center;
-  font-size: 26px;
+
   position: relative;
   height: 70px;
   top: 20px;
@@ -224,19 +276,62 @@ const ProductPageSection = styled.div`
   :hover {
     background-color: #555;
     border-bottom: 2px solid #febd69;
+    margin-bottom: -2px;
+  }
+
+  @media all and (max-width: 1125px) {
+    padding: 15px 15px;
+    font-size: 16px;
   }
 `;
 
+const SearchBarContainer = styled.div`
+  width: 35vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media all and (max-width: 1330px) {
+    width: 20vw;
+  }
+
+  @media all and (max-width: 728px) {
+    width: 30vw;
+  }
+`;
+
+const SearchIconWrapper = styled.div`
+  height: 30px;
+  width: 30px;
+  margin-left: 5px;
+  align-items: center;
+  justify-content: center;
+  background-color: #febd69;
+`;
+
 const UserAccessWrapper = styled.div`
-  width: 20%;
+  width: 25vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 20px;
+
+  @media all and (max-width: 1330px) {
+    width: 27vw;
+  }
+
+  @media all and (max-width: 1125px) {
+    width: 32vw;
+    font-size: 17px;
+  }
+
+  @media all and (max-width: 728px) {
+    width: 45vw;
+  }
 `;
 
 const UserAccessSection = styled.div`
   cursor: pointer;
-  font-size: 25px;
   font-weight: bold;
   position: relative;
   display: flex;
@@ -244,16 +339,26 @@ const UserAccessSection = styled.div`
   align-items: center;
   height: 70px;
   top: 20px;
-  z-index: 999;
+  z-index: 10;
 `;
 
-const UserAccessHead = styled.div``;
+const UserAccessHead = styled.div`
+  position: relative;
+  top: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  word-wrap: break-word;
+  max-width: 200px;
+  @media all and (max-width: 1125px) {
+    top: 3px;
+  }
+`;
 
 const UserAccessBody = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  width: 150px;
   top: 50px;
 `;
 
@@ -270,17 +375,24 @@ const AccountSection = styled.div`
   gap: 24px;
   padding-top: 30px;
   padding-bottom: 50px;
-
+  width: 150px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #eee;
   a {
-    font-size: 20px;
-    font-weight: 600;
-    color: #eee;
-
     :hover {
       font-weight: 600;
       border-bottom: 2px solid #febd69;
       margin-bottom: -2px;
     }
+  }
+
+  @media all and (max-width: 1125px) {
+    padding-top: 15px;
+    padding-bottom: 25px;
+    gap: 12px;
+    font-size: 16px;
+    width: 100px;
   }
 `;
 
@@ -297,33 +409,26 @@ const SignOutSection = styled.div`
   :hover {
     font-weight: 600;
     font-size: 20px;
-
     transition: all 0.2s ease-in-out;
   }
-`;
 
-const SearchBarContainer = styled.div`
-  width: 35%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const SearchIconWrapper = styled.div`
-  height: 30px;
-  width: 30px;
-  margin-left: 5px;
-  align-items: center;
-  justify-content: center;
-  background-color: #febd69;
+  @media all and (max-width: 1125px) {
+    font-size: 17px;
+    height: 40px;
+    :hover {
+      font-weight: 600;
+      font-size: 18px;
+      transition: all 0.2s ease-in-out;
+    }
+  }
 `;
 
 const ShoppingBag = styled.div`
   display: flex;
+  font-size: 20px;
   align-items: center;
   position: relative;
   left: 20px;
-  top: 3px;
   gap: 2px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -331,8 +436,26 @@ const ShoppingBag = styled.div`
     color: rgb(255, 215, 0);
     transition: all 0.2s ease-in-out;
   }
+
+  @media all and (max-width: 1125px) {
+    left: 5px;
+    font-size: 16px;
+  }
 `;
 
-const ItemCount = styled.div`
-  font-size: 20px;
+const ItemCount = styled.div``;
+
+const MenuIconWrapper = styled.div`
+  position: absolute;
+  display: none;
+  right: 3px;
+  cursor: pointer;
+
+  :hover {
+    color: #2b2b2b;
+  }
+
+  @media all and (max-width: 728px) {
+    display: flex;
+  }
 `;

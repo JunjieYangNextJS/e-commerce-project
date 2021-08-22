@@ -16,7 +16,7 @@ const SearchBox = ({ value, onChange }) => {
 export default SearchBox;
 
 const SearchBoxInput = styled.input`
-  min-width: 100px;
+  min-width: 50px;
   flex-grow: 1;
   height: 30px;
   border: none;

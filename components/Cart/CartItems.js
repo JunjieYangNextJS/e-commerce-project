@@ -27,7 +27,7 @@ function CartItems() {
       <CartItemsWrapper>
         {cartItems.length > 0 ? (
           cartItemsEachPage.map(({ id, product }) => (
-            <CartItemSection>
+            <CartItemSection key={id}>
               <CartItem
                 key={id}
                 id={id}

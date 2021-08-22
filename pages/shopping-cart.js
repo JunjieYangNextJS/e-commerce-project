@@ -2,7 +2,7 @@ import CartItems from "../components/Cart/CartItems";
 import CartTotal from "../components/Cart/CartTotal";
 import React from "react";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbars/Navbar";
 import Footer from "../components/Footer";
 
 export default function ShoppingCart() {

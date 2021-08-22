@@ -1,42 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import router, { useRouter } from "next/router";
 import ProductFeed from "./ProductFeed";
-import { signIn, signOut, useSession } from "next-auth/client";
-import { ProductsDropDownList, ProductsDDLSection } from "../Navbar";
 
 const HeroElements = ({ products }) => {
-  const [session] = useSession();
-
-  const [clickForMore, setClickForMore] = useState(false);
-
-  const toggleClickForMore = () => {
-    setClickForMore(!clickForMore);
-  };
-
-  const directToPage = (page) => {
-    router.push(page);
-  };
-
   return (
     <HeroContainer>
-      {clickForMore && (
-        <ProductsDropDownList>
-          <ProductsDDLSection onClick={() => directToPage("/rings")}>
-            Rings
-          </ProductsDDLSection>
-          <ProductsDDLSection onClick={() => directToPage("/necklace")}>
-            Necklace
-          </ProductsDDLSection>
-          <ProductsDDLSection onClick={() => directToPage("/bracelet")}>
-            Bracelet
-          </ProductsDDLSection>
-          <ProductsDDLSection onClick={() => directToPage("/earrings")}>
-            Earrings
-          </ProductsDDLSection>
-        </ProductsDropDownList>
-      )}
       <ImageWrapperOne>
         <Image
           src={`https://images.unsplash.com/photo-1558882268-15aa056d885f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80`}
@@ -46,9 +15,7 @@ const HeroElements = ({ products }) => {
       </ImageWrapperOne>
       <HeroSection>
         <HeroTitle>Our Signature Luxuries</HeroTitle>
-        <HeroNavToProducts onClick={!session ? signIn : toggleClickForMore}>
-          Click For More
-        </HeroNavToProducts>
+
         <ProductFeed products={products} />
       </HeroSection>
 
@@ -99,18 +66,4 @@ const HeroTitle = styled.h1`
   color: #ffd700;
 
   text-shadow: 3px 3px gray;
-`;
-
-const HeroNavToProducts = styled.p`
-  text-align: center;
-  margin-top: -20px;
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: 19px;
-  font-weight: 600;
-  opacity: 60%;
-
-  &:active {
-    color: #ffd700;
-  }
 `;

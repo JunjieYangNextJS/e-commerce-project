@@ -10,8 +10,6 @@ const PaginateBtn = ({
   setCurrentPage,
   deleteLastPageItem,
   setDeleteLastPageItem,
-  cartItemsEachPage,
-  cartItems,
 }) => {
   // paginating the pagination bar and displaying 3 pages at a time
   const [slicedPaginationBar, setSlicedPaginationBar] = useState(1);
@@ -32,7 +30,7 @@ const PaginateBtn = ({
   );
 
   const goToNextSlicedPaginationBar = () => {
-    setCurrentPage(slicedPaginationBar * 3 + 1);
+    setCurrentPage(slicedPaginationBar * numberOfPagesPerSlice + 1);
     setSlicedPaginationBar(slicedPaginationBar + 1);
   };
 
@@ -41,14 +39,14 @@ const PaginateBtn = ({
   };
 
   const goToPreviousPage = () => {
-    if (currentPage % 3 === 1) {
+    if (currentPage % numberOfPagesPerSlice === 1) {
       setSlicedPaginationBar(slicedPaginationBar - 1);
     }
     setCurrentPage(currentPage - 1);
   };
 
   const goToNextPage = () => {
-    if (currentPage % 3 === 0) {
+    if (currentPage % numberOfPagesPerSlice === 0) {
       setSlicedPaginationBar(slicedPaginationBar + 1);
     }
     setCurrentPage(currentPage + 1);
@@ -81,7 +79,6 @@ const PaginateBtn = ({
             </PageButton>
           ))}
         <GoToNextSliceButton
-          currentPage={currentPage}
           allSlicedPaginationBars={allSlicedPaginationBars}
           slicedPaginationBar={slicedPaginationBar}
           onClick={goToNextSlicedPaginationBar}
