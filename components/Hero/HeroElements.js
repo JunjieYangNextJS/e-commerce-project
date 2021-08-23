@@ -33,29 +33,40 @@ const HeroElements = ({ products }) => {
 export default HeroElements;
 
 const HeroContainer = styled.div`
-  height: 951px;
-  max-width: 100%;
+  height: auto;
+  width: 100%;
   overflow: hidden;
   background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1));
-  z-index: -1;
   display: flex;
   justify-content: space-between;
+
+  @media all and (max-width: 728px) {
+    justify-content: center;
+  }
 `;
 
 const ImageWrapperOne = styled.div`
   opacity: 80%;
   margin-left: -100px;
+
+  @media all and (max-width: 728px) {
+    display: none;
+  }
 `;
 
 const ImageWrapperTwo = styled.div`
   opacity: 90%;
-
   margin-right: -100px;
+
+  @media all and (max-width: 728px) {
+    display: none;
+  }
 `;
 
 const HeroSection = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0px 20px;
 `;
 
 const HeroTitle = styled.h1`
@@ -66,4 +77,8 @@ const HeroTitle = styled.h1`
   color: #ffd700;
 
   text-shadow: 3px 3px gray;
+
+  @media all and (max-width: 728px) {
+    font-size: 32px;
+  }
 `;

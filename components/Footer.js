@@ -89,9 +89,15 @@ const FooterContainer = styled.div`
   display: flex;
   background-color: #1b1b1b;
   height: 250px;
+  width: 100%;
   justify-content: center;
   align-items: center;
-  gap: 250px;
+  /* gap: 250px; */
+  gap: 13%;
+
+  @media all and (max-width: 728px) {
+    gap: 10%;
+  }
 `;
 
 const FooterWrapper = styled.div`
@@ -104,6 +110,10 @@ const FooterWrapper = styled.div`
 const FooterTitle = styled.div`
   color: #999;
   font-size: 20px;
+
+  @media all and (max-width: 728px) {
+    font-size: 2.9vw;
+  }
 `;
 
 const FooterContent = styled.ul`
@@ -118,6 +128,10 @@ const FooterItem = styled.li`
   font-size: 15px;
   line-height: 30px;
   cursor: pointer;
+
+  @media all and (max-width: 728px) {
+    font-size: 2.6vw;
+  }
 `;
 
 const FooterLink = styled.div`

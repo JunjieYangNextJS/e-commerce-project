@@ -57,7 +57,7 @@ export default function AboutUs() {
           </AboutUsHelpSection>
         </AboutUsHelpContainer>
       </AboutUsHelpPage>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

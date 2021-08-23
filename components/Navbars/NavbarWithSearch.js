@@ -194,6 +194,11 @@ const Logo = styled.div`
     font-size: 30px;
   }
 
+  @media all and (max-width: 480px) {
+    width: 20vw;
+    font-size: 27px;
+  }
+
   a {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -326,6 +331,8 @@ const UserAccessWrapper = styled.div`
   }
 
   @media all and (max-width: 728px) {
+    font-size: 15px;
+
     width: 45vw;
   }
 `;
@@ -441,6 +448,12 @@ const ShoppingBag = styled.div`
     left: 5px;
     font-size: 16px;
   }
+
+  @media all and (max-width: 480px) {
+    gap: 0;
+    left: 0;
+    font-size: 14px;
+  }
 `;
 
 const ItemCount = styled.div``;
@@ -457,5 +470,9 @@ const MenuIconWrapper = styled.div`
 
   @media all and (max-width: 728px) {
     display: flex;
+  }
+
+  @media all and (max-width: 480px) {
+    font-size: 12px;
   }
 `;

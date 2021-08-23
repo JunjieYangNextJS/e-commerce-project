@@ -148,7 +148,7 @@ const Logo = styled.div`
   }
 
   @media all and (max-width: 728px) {
-    width: 20vw;
+    width: 22vw;
     font-size: 30px;
   }
 

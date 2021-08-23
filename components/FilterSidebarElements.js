@@ -37,33 +37,35 @@ function FilterSidebarElements({
 
   return (
     <FilterSidebarContainer>
-      <ItemPriceContainer>
-        <ResetItemPrice onClick={resetPriceRange}>
-          Reset Price Range
-        </ResetItemPrice>
-        {priceRangeArray.map((range, index) => (
-          <ItemPriceWrapper key={index}>
-            <ItemPrice onClick={() => changePriceRange(range)}>
-              {range}
-            </ItemPrice>
-            <hr />
-          </ItemPriceWrapper>
-        ))}
-      </ItemPriceContainer>
-      <ItemRatingContainer>
-        {ratingArray.map((n) => (
-          <ItemRatingWrapper key={n}>
-            <ItemRating
-              currentRating={n}
-              luxuryRating={luxuryRating}
-              onClick={() => changeRating(n)}
-            >
-              <ReactStars count={n} size={24} color="#ffd700" /> & Up
-            </ItemRating>
-            <hr />
-          </ItemRatingWrapper>
-        ))}
-      </ItemRatingContainer>
+      <FilterSidebarWrapper>
+        <ItemPriceContainer>
+          <ResetItemPrice onClick={resetPriceRange}>
+            Reset Price Range
+          </ResetItemPrice>
+          {priceRangeArray.map((range, index) => (
+            <ItemPriceWrapper key={index}>
+              <ItemPrice onClick={() => changePriceRange(range)}>
+                {range}
+              </ItemPrice>
+              <hr />
+            </ItemPriceWrapper>
+          ))}
+        </ItemPriceContainer>
+        <ItemRatingContainer>
+          {ratingArray.map((n) => (
+            <ItemRatingWrapper key={n}>
+              <ItemRating
+                currentRating={n}
+                luxuryRating={luxuryRating}
+                onClick={() => changeRating(n)}
+              >
+                <ReactStars count={n} size={24} color="#ffd700" /> & Up
+              </ItemRating>
+              <hr />
+            </ItemRatingWrapper>
+          ))}
+        </ItemRatingContainer>
+      </FilterSidebarWrapper>
     </FilterSidebarContainer>
   );
 }
@@ -71,9 +73,15 @@ function FilterSidebarElements({
 export default FilterSidebarElements;
 
 const FilterSidebarContainer = styled.div`
-  width: 12vw;
+  width: 10vw;
   background: #a6a6a6;
-  height: 915px;
+  height: auto;
+  position: relative;
+`;
+
+const FilterSidebarWrapper = styled.div`
+  position: sticky;
+  top: 25vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -81,9 +89,7 @@ const FilterSidebarContainer = styled.div`
   gap: 150px;
 `;
 
-const ItemPriceContainer = styled.div`
-  margin-top: -100px;
-`;
+const ItemPriceContainer = styled.div``;
 
 const ResetItemPrice = styled.button`
   border: none;
@@ -101,7 +107,7 @@ const ItemPriceWrapper = styled.div`
   gap: 5px;
 
   hr {
-    width: 100%;
+    width: 80%;
   }
 `;
 
@@ -116,6 +122,14 @@ const ItemPrice = styled.button`
     color: #ffd700;
     font-size: 17px;
     margin-bottom: -8px;
+  }
+
+  @media all and (max-width: 1330px) {
+    font-size: 14px;
+    :focus {
+      font-size: 14px;
+      margin-bottom: -6px;
+    }
   }
 `;
 

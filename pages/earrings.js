@@ -115,7 +115,8 @@ const EarringsPageWrapper = styled.div`
 
 const EarringsBodyContainer = styled.div`
   width: 88vw;
-  height: 899px;
+  min-height: calc(100vh - 70px);
+  height: auto;
 `;
 
 const EarringsBodyTitle = styled.h1`
@@ -130,8 +131,12 @@ const EarringsBodyTitle = styled.h1`
 const EarringsItemsContainer = styled.div`
   display: grid;
   background-color: #fff;
-  height: 800px;
+  height: auto;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  border-radius: 2px solid black;
+
+  @media all and (max-width: 1125px) {
+    grid-template-columns: none;
+    grid-template-rows: repeat(4, 1fr);
+  }
 `;

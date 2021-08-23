@@ -9,7 +9,7 @@ function ProductFeed({ products }) {
   return (
     <HeroMain>
       <HeroProductsContainer>
-        <ProductContainer>
+        <ProductContainerTop>
           <Image
             src="https://cdn.discordapp.com/attachments/800941790798544949/870432514202804224/-1.png"
             height={200}
@@ -28,8 +28,8 @@ function ProductFeed({ products }) {
           <PriceContainer>
             <Currency quantity={products[0].price} />
           </PriceContainer>
-        </ProductContainer>
-        <ProductContainer>
+        </ProductContainerTop>
+        <ProductContainerTop>
           <Image
             src="https://cdn.discordapp.com/attachments/800941790798544949/870436130502365234/3.png"
             height={200}
@@ -48,7 +48,7 @@ function ProductFeed({ products }) {
           <PriceContainer>
             <Currency quantity={products[2].price} />
           </PriceContainer>
-        </ProductContainer>
+        </ProductContainerTop>
       </HeroProductsContainer>
 
       <HeroProductsContainer>
@@ -99,17 +99,28 @@ function ProductFeed({ products }) {
 
 export default ProductFeed;
 
-const HeroMain = styled.div``;
+const HeroMain = styled.div`
+  @media all and (max-width: 728px) {
+    padding-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+  }
+`;
 
 const HeroProductsContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 700px;
-  /* background-color: white; */
-  gap: 35px;
   align-items: flex-start;
+  width: 100%;
+  gap: 35px;
   margin-top: 20px;
+
+  @media all and (max-width: 728px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+  }
 `;
 
 // const StarIconContainer = styled.div`
@@ -118,21 +129,27 @@ const HeroProductsContainer = styled.div`
 //   object-fit: cover;
 // `;
 
-const ProductContainer = styled.div`
+const ProductContainerTop = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 
   h4 {
     width: 320px;
+    max-width: 80vw;
     text-align: center;
     margin-bottom: -7px;
   }
 
   p {
     width: 300px;
+    max-width: 80vw;
     text-align: center;
     margin-bottom: 7px;
+  }
+
+  @media all and (max-width: 728px) {
+    gap: 10px;
   }
 `;
 
@@ -145,6 +162,7 @@ const ProductContainerBottom = styled.div`
 
   h4 {
     width: 320px;
+    max-width: 80vw;
     margin-top: -25px;
     text-align: center;
     margin-bottom: -7px;
@@ -152,8 +170,13 @@ const ProductContainerBottom = styled.div`
 
   p {
     width: 300px;
+    max-width: 80vw;
     text-align: center;
     margin-bottom: 7px;
+  }
+
+  @media all and (max-width: 728px) {
+    gap: 10px;
   }
 `;
 

@@ -53,10 +53,8 @@ export default LuxuriesItems;
 const LuxuryContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin-left: 100px;
-  margin-right: 100px;
-  width: 620px;
-  gap: 20px;
+  padding: 40px 0px;
+  width: 100%;
 `;
 
 const MainContainer = styled.div`
@@ -64,7 +62,7 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 310px;
+  width: 50%;
 `;
 
 const TextContainer = styled.div`
@@ -72,13 +70,19 @@ const TextContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 310px;
+  width: 40%;
 
   h4 {
     width: 320px;
     text-align: center;
     margin-bottom: -6px;
     font-weight: 800;
+  }
+
+  @media all and (max-width: 1330px) {
+    h4 {
+      width: 240px;
+    }
   }
 `;
 
