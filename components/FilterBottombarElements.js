@@ -11,7 +11,7 @@ export const priceRangeArray = [
   "Above $2000",
 ];
 
-function FilterSidebarElements({
+function FilterBottombarElements({
   luxuryRating,
   setLuxuryRating,
   luxuryPriceRange,
@@ -48,42 +48,49 @@ function FilterSidebarElements({
   return (
     <FilterSidebarContainer>
       <FilterSidebarWrapper>
-        <ItemPriceContainer>
-          <ResetItemPrice onClick={resetPriceRange}>All Prices</ResetItemPrice>
-          {priceRangeArray.map((range, index) => (
-            <ItemPriceWrapper key={index}>
-              <ItemPrice
-                currentPriceRange={range}
-                luxuryPriceRange={luxuryPriceRange}
-                onClick={() => changePriceRange(range)}
-              >
-                {range}
-              </ItemPrice>
-              <hr />
-            </ItemPriceWrapper>
-          ))}
-        </ItemPriceContainer>
-
-        <ItemRatingContainer>
-          {ratingArray.map((n) => (
-            <ItemRatingWrapper key={n}>
-              <ItemRating
-                currentRating={n}
-                luxuryRating={luxuryRating}
-                onClick={() => changeRating(n)}
-              >
-                <ReactStars count={n} size={24} color="#ffd700" /> & Up
-              </ItemRating>
-              <hr />
-            </ItemRatingWrapper>
-          ))}
-        </ItemRatingContainer>
+        <FilterSectionWrapper>
+          <FilterSectionTitle>Price Ranges</FilterSectionTitle>
+          <ItemPriceContainer>
+            <ResetItemPrice onClick={resetPriceRange}>
+              All Prices
+            </ResetItemPrice>
+            {priceRangeArray.map((range, index) => (
+              <ItemPriceWrapper key={index}>
+                <ItemPrice
+                  currentPriceRange={range}
+                  luxuryPriceRange={luxuryPriceRange}
+                  onClick={() => changePriceRange(range)}
+                >
+                  {range}
+                </ItemPrice>
+                <hr />
+              </ItemPriceWrapper>
+            ))}
+          </ItemPriceContainer>
+        </FilterSectionWrapper>
+        <FilterSectionWrapper>
+          <FilterSectionTitle>Customer Ratings</FilterSectionTitle>
+          <ItemRatingContainer>
+            {ratingArray.map((n) => (
+              <ItemRatingWrapper key={n}>
+                <ItemRating
+                  currentRating={n}
+                  luxuryRating={luxuryRating}
+                  onClick={() => changeRating(n)}
+                >
+                  <ReactStars count={n} size={24} color="#ffd700" /> & Up
+                </ItemRating>
+                <hr />
+              </ItemRatingWrapper>
+            ))}
+          </ItemRatingContainer>
+        </FilterSectionWrapper>
       </FilterSidebarWrapper>
     </FilterSidebarContainer>
   );
 }
 
-export default FilterSidebarElements;
+export default FilterBottombarElements;
 
 const FilterSidebarContainer = styled.div`
   width: 10vw;

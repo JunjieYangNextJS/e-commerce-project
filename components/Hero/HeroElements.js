@@ -40,7 +40,7 @@ const HeroContainer = styled.div`
   display: flex;
   justify-content: space-between;
 
-  @media all and (max-width: 728px) {
+  @media all and (max-width: 1125px) {
     justify-content: center;
   }
 `;
@@ -49,7 +49,7 @@ const ImageWrapperOne = styled.div`
   opacity: 80%;
   margin-left: -100px;
 
-  @media all and (max-width: 728px) {
+  @media all and (max-width: 1125px) {
     display: none;
   }
 `;
@@ -58,7 +58,7 @@ const ImageWrapperTwo = styled.div`
   opacity: 90%;
   margin-right: -100px;
 
-  @media all and (max-width: 728px) {
+  @media all and (max-width: 1125px) {
     display: none;
   }
 `;

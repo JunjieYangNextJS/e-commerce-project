@@ -75,8 +75,10 @@ function Necklace() {
         <FilterSidebarElements
           luxuryRating={necklaceStarRating}
           setLuxuryRating={setNecklaceStarRating}
+          luxuryPriceRange={necklacePriceRange}
           setLuxuryPriceRange={setNecklacePriceRange}
           setLuxuryCurrentPage={setNecklaceCurrentPage}
+          luxuryType={"necklace"}
         />
         <NecklaceBodyContainer>
           <NecklaceBodyTitle>Our Exclusive Necklace</NecklaceBodyTitle>

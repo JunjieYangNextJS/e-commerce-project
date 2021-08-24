@@ -75,8 +75,10 @@ function Earrings() {
         <FilterSidebarElements
           luxuryRating={earringsStarRating}
           setLuxuryRating={setEarringsStarRating}
+          luxuryPriceRange={earringsPriceRange}
           setLuxuryPriceRange={setEarringsPriceRange}
           setLuxuryCurrentPage={setEarringsCurrentPage}
+          luxuryType={"earrings"}
         />
         <EarringsBodyContainer>
           <EarringsBodyTitle>Our Exclusive Earrings</EarringsBodyTitle>
@@ -111,12 +113,21 @@ const EarringsPageContainer = styled.div``;
 const EarringsPageWrapper = styled.div`
   display: flex;
   flex-direction: row;
+
+  @media all and (max-width: 1330px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 const EarringsBodyContainer = styled.div`
-  width: 88vw;
+  width: 87vw;
   min-height: calc(100vh - 70px);
   height: auto;
+
+  @media all and (max-width: 1330px) {
+    width: 100%;
+  }
 `;
 
 const EarringsBodyTitle = styled.h1`

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useLuxuriesTypes } from "../../contexts/LuxuriesContext";
 
-function NavMenuExpanded({ expandNavMenu, directToPage, router }) {
+function NavMenuExpanded({ expandNavMenu, directToPage }) {
   const luxuryTypes = useLuxuriesTypes();
 
   return (
@@ -13,7 +13,7 @@ function NavMenuExpanded({ expandNavMenu, directToPage, router }) {
             <MenuItem>{luxuryType}</MenuItem>
           </MenuRoute>
         ))}
-        <MenuRoute onClick={() => router.push("/about-us")}>
+        <MenuRoute onClick={() => directToPage("about-us")}>
           <MenuItem>About Us</MenuItem>
         </MenuRoute>
       </MenuWrapper>

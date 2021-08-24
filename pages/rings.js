@@ -73,8 +73,10 @@ function Rings() {
         <FilterSidebarElements
           luxuryRating={ringsStarRating}
           setLuxuryRating={setRingsStarRating}
+          luxuryPriceRange={ringsPriceRange}
           setLuxuryPriceRange={setRingsPriceRange}
           setLuxuryCurrentPage={setRingsCurrentPage}
+          luxuryType={"rings"}
         />
         <RingsBodyContainer>
           <RingsBodyTitle>Our Exclusive Rings</RingsBodyTitle>
@@ -114,6 +116,10 @@ const RingsPageWrapper = styled.div`
 const RingsBodyContainer = styled.div`
   width: 88vw;
   height: 899px;
+
+  @media all and (max-width: 1330px) {
+    width: 100%;
+  }
 `;
 
 const RingsBodyTitle = styled.h1`

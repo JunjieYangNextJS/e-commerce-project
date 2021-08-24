@@ -113,7 +113,7 @@ const HeroProductsContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   width: 100%;
-  gap: 35px;
+  gap: 9vw;
   margin-top: 20px;
 
   @media all and (max-width: 728px) {

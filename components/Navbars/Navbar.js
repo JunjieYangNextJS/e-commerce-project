@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import router from "next/router";
+import { useRouter } from "next/router";
+import disableScroll from "disable-scroll";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
@@ -31,27 +32,41 @@ const Navbar = () => {
     setAccountDDL(false);
   };
 
-  const directToPage = (page) => {
-    router.push(`/${page}`);
-  };
+  // handle expandNavMenu actions and redirecting to pages;
+  const router = useRouter();
 
   const [expandNavMenu, setExpandNavMenu] = useState(false);
 
   const handleNavMenuExpanded = () => {
     setExpandNavMenu(!expandNavMenu);
+    !expandNavMenu ? disableScroll.on() : disableScroll.off();
   };
+
+  const directToPage = (page) => {
+    router.push(`/${page}`);
+    disableScroll.off();
+    if (`/${page}` === router.pathname) setExpandNavMenu(false);
+  };
+
+  const handleNavMenuOnResize = () => {
+    if (window.innerWidth > 728) {
+      setExpandNavMenu(false);
+      disableScroll.off();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleNavMenuOnResize);
+    return () => window.removeEventListener("resize", handleNavMenuOnResize);
+  }, [expandNavMenu]);
 
   return (
     <>
       <Nav>
-        <Logo>
-          <Link href="/">
-            <a>
-              <p>Po</p>
-              <StyledP>P</StyledP>
-              <p>o</p>
-            </a>
-          </Link>
+        <Logo onClick={() => directToPage("")}>
+          <p>Po</p>
+          <StyledP>P</StyledP>
+          <p>o</p>
         </Logo>
 
         <NavToProductPagesSection>
@@ -95,7 +110,7 @@ const Navbar = () => {
             </UserAccessBody>
           </UserAccessSection>
           {session && (
-            <ShoppingBag onClick={() => router.push("/shopping-cart")}>
+            <ShoppingBag onClick={() => directToPage("shopping-cart")}>
               <LocalMallIcon style={{ fontSize: 28 }} />
               <ItemCount>{getCartItemsQuantity()}</ItemCount>
             </ShoppingBag>
@@ -135,9 +150,13 @@ const Logo = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  cursor: pointer;
   bottom: 3px;
   width: 10vw;
   font-size: 45px;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
   @media all and (max-width: 1500px) {
     width: 15vw;
@@ -151,30 +170,7 @@ const Logo = styled.div`
     width: 22vw;
     font-size: 30px;
   }
-
-  a {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-
-    font-weight: 600;
-    display: flex;
-  }
 `;
-
-// const Logo = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   width: 10%;
-
-//   a {
-//     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-//       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-//     font-size: 45px;
-//     font-weight: 600;
-//     display: flex;
-//   }
-// `;
 
 const StyledP = styled.p`
   color: #febd69;
@@ -276,7 +272,7 @@ const UserAccessSection = styled.div`
   align-items: center;
   height: 70px;
   top: 20px;
-  z-index: 10;
+  z-index: 100;
 `;
 
 const UserAccessHead = styled.div`
@@ -302,6 +298,7 @@ const UserAccessBody = styled.div`
 const AccountDropDownList = styled.div`
   box-shadow: #a6a6a6 0 0 20px 5px;
   background-color: #2e3131;
+  z-index: 100;
 `;
 
 const AccountSection = styled.div`
@@ -316,6 +313,7 @@ const AccountSection = styled.div`
   font-size: 20px;
   font-weight: 600;
   color: #eee;
+
   a {
     :hover {
       font-weight: 600;

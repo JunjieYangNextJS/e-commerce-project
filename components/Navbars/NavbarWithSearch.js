@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import router from "next/router";
+import { useRouter } from "next/router";
+import disableScroll from "disable-scroll";
 import SearchIcon from "@material-ui/icons/Search";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -44,9 +45,33 @@ const NavbarWithSearch = ({ searchQuery, setSearchQuery }) => {
     setAccountDDL(false);
   };
 
+  // handle expandNavMenu actions and redirecting to pages;
+  const router = useRouter();
+
+  const [expandNavMenu, setExpandNavMenu] = useState(false);
+
+  const handleNavMenuExpanded = () => {
+    setExpandNavMenu(!expandNavMenu);
+    !expandNavMenu ? disableScroll.on() : disableScroll.off();
+  };
+
   const directToPage = (page) => {
     router.push(`/${page}`);
+    disableScroll.off();
+    if (`/${page}` === router.pathname) setExpandNavMenu(false);
   };
+
+  const handleNavMenuOnResize = () => {
+    if (window.innerWidth > 728) {
+      setExpandNavMenu(false);
+      disableScroll.off();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleNavMenuOnResize);
+    return () => window.removeEventListener("resize", handleNavMenuOnResize);
+  }, [expandNavMenu]);
 
   // handle filtering items by name in this page and direct user to other page when click search icon
   const handleSearchQuery = (newSearchQuery) => {
@@ -61,23 +86,13 @@ const NavbarWithSearch = ({ searchQuery, setSearchQuery }) => {
     });
   };
 
-  const [expandNavMenu, setExpandNavMenu] = useState(false);
-
-  const handleNavMenuExpanded = () => {
-    setExpandNavMenu(!expandNavMenu);
-  };
-
   return (
     <>
       <Nav>
-        <Logo>
-          <Link href="/">
-            <a>
-              <p>Po</p>
-              <StyledP>P</StyledP>
-              <p>o</p>
-            </a>
-          </Link>
+        <Logo onClick={() => directToPage("")}>
+          <p>Po</p>
+          <StyledP>P</StyledP>
+          <p>o</p>
         </Logo>
         <NavToPagesWrapper>
           <NavToPagesSection
@@ -138,7 +153,7 @@ const NavbarWithSearch = ({ searchQuery, setSearchQuery }) => {
             </UserAccessBody>
           </UserAccessSection>
           {session && (
-            <ShoppingBag onClick={() => router.push("/shopping-cart")}>
+            <ShoppingBag onClick={() => directToPage("shopping-cart")}>
               <LocalMallIcon />
 
               <ItemCount>{getCartItemsQuantity()}</ItemCount>
@@ -179,32 +194,25 @@ const Logo = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  cursor: pointer;
   bottom: 3px;
   width: 10vw;
   font-size: 45px;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+  @media all and (max-width: 1500px) {
+    width: 15vw;
+  }
 
   @media all and (max-width: 1125px) {
-    width: 15vw;
-
     font-size: 32px;
   }
 
   @media all and (max-width: 728px) {
-    width: 20vw;
+    width: 22vw;
     font-size: 30px;
-  }
-
-  @media all and (max-width: 480px) {
-    width: 20vw;
-    font-size: 27px;
-  }
-
-  a {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-
-    font-weight: 600;
-    display: flex;
   }
 `;
 
@@ -259,6 +267,7 @@ const NavToPagesBody = styled.div`
   position: absolute;
   width: auto;
   top: 50px;
+  z-index: 30;
 `;
 
 const ProductsPageDropDownList = styled.div`
