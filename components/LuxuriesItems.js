@@ -81,7 +81,7 @@ const TextContainer = styled.div`
 
   @media all and (max-width: 1330px) {
     h4 {
-      width: 240px;
+      width: 100%;
     }
   }
 `;

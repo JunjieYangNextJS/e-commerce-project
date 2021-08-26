@@ -38,6 +38,7 @@ const Navbar = () => {
   const [expandNavMenu, setExpandNavMenu] = useState(false);
 
   const handleNavMenuExpanded = () => {
+    window.scrollTo(0, 0);
     setExpandNavMenu(!expandNavMenu);
     !expandNavMenu ? disableScroll.on() : disableScroll.off();
   };

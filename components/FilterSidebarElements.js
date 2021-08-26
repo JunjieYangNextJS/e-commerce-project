@@ -93,14 +93,7 @@ const FilterSidebarContainer = styled.div`
   position: relative;
 
   @media all and (max-width: 1330px) {
-    width: 100%;
-    height: 50vh;
-    position: absolute;
-    bottom: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
+    display: none;
   }
 `;
 
@@ -112,60 +105,13 @@ const FilterSidebarWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 150px;
-  @media all and (max-width: 1330px) {
-    display: flex;
-    /* todo */
-    flex-direction: row;
-    justify-content: space-between;
-
-    height: 80%;
-    width: 80%;
-  }
-`;
-
-const FilterSectionWrapper = styled.div`
-  @media all and (max-width: 1330px) {
-    width: 40%;
-    height: 100%;
-    margin-top: -2%;
-    min-width: 35vw;
-  }
-`;
-
-const FilterSectionTitle = styled.div`
-  @media all and (max-width: 1330px) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 21px;
-    font-weight: bold;
-    height: 25%;
-    letter-spacing: 0.5px;
-    word-spacing: 2px;
-  }
-
-  @media all and (max-width: 728px) {
-    font-size: 16px;
-  }
-
-  @media all and (max-width: 420px) {
-    letter-spacing: 0;
-    word-spacing: 0;
-    font-size: 13px;
-  }
 `;
 
 const ItemPriceContainer = styled.div`
-  @media all and (max-width: 1330px) {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: column;
-    height: 75%;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 15px 1px #a6a6a6;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const ResetItemPrice = styled.button`
@@ -175,21 +121,6 @@ const ResetItemPrice = styled.button`
   font-size: 15px;
   margin-bottom: 30px;
   cursor: pointer;
-
-  @media all and (max-width: 1330px) {
-    font-weight: 400;
-    font-size: 18px;
-    height: 20%;
-    margin-bottom: 0;
-  }
-
-  @media all and (max-width: 728px) {
-    font-size: 16px;
-  }
-
-  @media all and (max-width: 420px) {
-    font-size: 13px;
-  }
 `;
 
 const ItemPriceWrapper = styled.div`
@@ -199,20 +130,7 @@ const ItemPriceWrapper = styled.div`
   gap: 5px;
 
   hr {
-    width: 80%;
-  }
-
-  @media all and (max-width: 1330px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-
-    height: 20%;
-
-    hr {
-      display: none;
-    }
+    width: 100%;
   }
 `;
 
@@ -230,27 +148,6 @@ const ItemPrice = styled.button`
       font-size: 17px;
       margin-bottom: -8px;
     `}
-
-  @media all and (max-width: 1330px) {
-    font-size: 18px;
-    margin-bottom: 0;
-
-    ${({ luxuryPriceRange, currentPriceRange }) =>
-      luxuryPriceRange === currentPriceRange &&
-      css`
-        color: #ffd700;
-        font-size: 18px;
-        margin-bottom: 0px;
-      `}
-  }
-
-  @media all and (max-width: 728px) {
-    font-size: 16px;
-  }
-
-  @media all and (max-width: 420px) {
-    font-size: 13px;
-  }
 `;
 
 const ItemRatingContainer = styled.div`
@@ -261,30 +158,17 @@ const ItemRatingContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  @media all and (max-width: 1330px) {
-    height: 75%;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 15px 1px #a6a6a6;
-    justify-content: space-evenly;
-  }
 `;
 
 const ItemRatingWrapper = styled.div`
   display: flex;
-  width: 100%;
+
   justify-content: center;
+  flex-direction: column;
 
   hr {
     width: 100%;
     margin-top: 3px;
-  }
-
-  @media all and (max-width: 1330px) {
-    hr {
-      display: none;
-    }
   }
 `;
 
@@ -295,8 +179,4 @@ const ItemRating = styled.div`
   font-size: 13px;
   font-weight: ${({ luxuryRating, currentRating }) =>
     luxuryRating === currentRating ? "700" : "default"};
-
-  @media all and (max-width: 420px) {
-    font-size: 10px;
-  }
 `;

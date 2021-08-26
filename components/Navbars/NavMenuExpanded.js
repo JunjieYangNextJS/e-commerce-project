@@ -13,8 +13,8 @@ function NavMenuExpanded({ expandNavMenu, directToPage }) {
             <MenuItem>{luxuryType}</MenuItem>
           </MenuRoute>
         ))}
-        <MenuRoute onClick={() => directToPage("about-us")}>
-          <MenuItem>About Us</MenuItem>
+        <MenuRoute onClick={() => directToPage("shopping-cart")}>
+          <MenuItem>Shopping Cart</MenuItem>
         </MenuRoute>
       </MenuWrapper>
     </MenuContainer>

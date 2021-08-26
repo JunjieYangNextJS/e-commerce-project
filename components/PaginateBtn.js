@@ -32,10 +32,12 @@ const PaginateBtn = ({
   const goToNextSlicedPaginationBar = () => {
     setCurrentPage(slicedPaginationBar * numberOfPagesPerSlice + 1);
     setSlicedPaginationBar(slicedPaginationBar + 1);
+    window.scrollTo(0, 0);
   };
 
   const onPageChange = (page) => {
     setCurrentPage(page);
+    window.scrollTo(0, 0);
   };
 
   const goToPreviousPage = () => {
@@ -43,6 +45,7 @@ const PaginateBtn = ({
       setSlicedPaginationBar(slicedPaginationBar - 1);
     }
     setCurrentPage(currentPage - 1);
+    window.scrollTo(0, 0);
   };
 
   const goToNextPage = () => {
@@ -50,6 +53,7 @@ const PaginateBtn = ({
       setSlicedPaginationBar(slicedPaginationBar + 1);
     }
     setCurrentPage(currentPage + 1);
+    window.scrollTo(0, 0);
   };
 
   // update three states after the last page-item gets deleted

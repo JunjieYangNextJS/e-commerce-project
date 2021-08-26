@@ -49,6 +49,9 @@ function CartItem({
         </CartItemPrice>
 
         <CartItemQuantityContainer>
+          <CartItemPriceInSmallerScreen>
+            <Currency quantity={price} />
+          </CartItemPriceInSmallerScreen>
           <CartItemQuantitySelect
             value={quantity}
             onChange={(e) => handleQuantityChange(e.target.value)}
@@ -68,12 +71,21 @@ const CartItemContainer = styled.div`
   display: flex;
   padding: 20px 40px 20px 40px;
   color: black;
-  gap: 60px;
+  gap: 7%;
+
+  @media all and (max-width: 480px) {
+    flex-direction: column;
+  }
 `;
 
 const CartItemDetails = styled.div`
   /* border: 1px solid red; */
   width: 70%;
+
+  @media all and (max-width: 480px) {
+    width: 100%;
+    text-align: center;
+  }
 `;
 
 const CartItemName = styled.div`
@@ -84,12 +96,21 @@ const CartItemName = styled.div`
 `;
 const CartItemPrice = styled.div`
   height: 30%;
+  margin-top: 3px;
   font-size: 18px;
+
+  @media all and (max-width: 1350px) {
+    visibility: hidden;
+  }
 `;
 
 const CartItemQuantityContainer = styled.div`
   gap: 10px;
   display: flex;
+  align-items: center;
+  @media all and (max-width: 480px) {
+    justify-content: center;
+  }
 `;
 
 const CartItemQuantitySelect = styled.select`
@@ -106,4 +127,16 @@ const CartItemDelete = styled.button`
   border: none;
   background-color: transparent;
   color: #313131;
+`;
+
+const CartItemPriceInSmallerScreen = styled.div`
+  display: none;
+  @media all and (max-width: 1350px) {
+    display: flex;
+    font-size: 17px;
+  }
+
+  /* @media all and (max-width: 400px) {
+    font-size: 12px;
+  } */
 `;

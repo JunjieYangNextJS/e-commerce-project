@@ -12,6 +12,8 @@ export const priceRangeArray = [
 ];
 
 function FilterBottombarElements({
+  hideBottombarOnScroll,
+  expandBottombar,
   luxuryRating,
   setLuxuryRating,
   luxuryPriceRange,
@@ -46,8 +48,11 @@ function FilterBottombarElements({
   };
 
   return (
-    <FilterSidebarContainer>
-      <FilterSidebarWrapper>
+    <FilterBottombarContainer
+      expandBottombar={expandBottombar}
+      hideBottombarOnScroll={hideBottombarOnScroll}
+    >
+      <FilterBottombarWrapper>
         <FilterSectionWrapper>
           <FilterSectionTitle>Price Ranges</FilterSectionTitle>
           <ItemPriceContainer>
@@ -63,7 +68,6 @@ function FilterBottombarElements({
                 >
                   {range}
                 </ItemPrice>
-                <hr />
               </ItemPriceWrapper>
             ))}
           </ItemPriceContainer>
@@ -80,76 +84,106 @@ function FilterBottombarElements({
                 >
                   <ReactStars count={n} size={24} color="#ffd700" /> & Up
                 </ItemRating>
-                <hr />
               </ItemRatingWrapper>
             ))}
           </ItemRatingContainer>
         </FilterSectionWrapper>
-      </FilterSidebarWrapper>
-    </FilterSidebarContainer>
+      </FilterBottombarWrapper>
+    </FilterBottombarContainer>
   );
 }
 
 export default FilterBottombarElements;
 
-const FilterSidebarContainer = styled.div`
-  width: 10vw;
-  background: #a6a6a6;
+const FilterBottombarContainer = styled.div`
   z-index: 10;
-  height: auto;
-  position: relative;
+  width: 100%;
+  height: 50vh;
+  position: absolute;
+  bottom: -100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.5)
+  );
+  transition: all 0.5s ease;
+  opacity: 1;
+  visibility: hidden;
 
   @media all and (max-width: 1330px) {
-    width: 100%;
-    height: 50vh;
-    position: absolute;
-    bottom: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
+    display: ${({ expandBottombar }) => (expandBottombar ? "flex" : "none")};
+    visibility: ${({ expandBottombar }) =>
+      expandBottombar ? "visible" : "hidden"};
+    bottom: ${({ expandBottombar }) => (expandBottombar ? "0" : "-100%")};
+  }
+  @media all and (max-width: 1125px) {
+    display: ${({ hideBottombarOnScroll }) =>
+      hideBottombarOnScroll ? "none" : "flex"};
+    visibility: ${({ expandBottombar }) =>
+      expandBottombar ? "visible" : "hidden"};
+
+    bottom: ${({ expandBottombar }) => (expandBottombar ? "0" : "-100%")};
   }
 `;
 
-const FilterSidebarWrapper = styled.div`
-  position: sticky;
+// ``  /* ${({ expandBottombar }) =>
+//     expandBottombar
+//       ? css`
+//           bottom: 0;
+//           visibility: ${({ hideBottombarOnScroll }) =>
+//             hideBottombarOnScroll ? "hidden" : "visible"};
+//           display: ${({ hideBottombarOnScroll }) =>
+//             hideBottombarOnScroll ? "none" : "flex"};
+//           transition: all 0.5s ease;
+//         `
+//       : css`
+//             bottom: -100%
+//             visibility: hidden;
+//             display: flex;
+//           `}
+//   } */
+
+const FilterBottombarWrapper = styled.div`
   top: 25vh;
   display: flex;
-  flex-direction: column;
+
   justify-content: center;
   align-items: center;
-  gap: 150px;
-  @media all and (max-width: 1330px) {
-    display: flex;
-    /* todo */
-    flex-direction: row;
-    justify-content: space-between;
 
-    height: 80%;
-    width: 80%;
-  }
+  display: flex;
+
+  flex-direction: row;
+  justify-content: space-between;
+
+  height: 80%;
+  width: 80%;
 `;
 
 const FilterSectionWrapper = styled.div`
-  @media all and (max-width: 1330px) {
-    width: 40%;
-    height: 100%;
-    margin-top: -2%;
+  width: 40%;
+  height: 100%;
+  margin-top: -2%;
+
+  @media all and (max-width: 420px) {
     min-width: 35vw;
   }
 `;
 
 const FilterSectionTitle = styled.div`
-  @media all and (max-width: 1330px) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 21px;
-    font-weight: bold;
-    height: 25%;
-    letter-spacing: 0.5px;
-    word-spacing: 2px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+  font-weight: bold;
+  color: #1b1b1b;
+  height: 25%;
+  letter-spacing: 0.5px;
+  word-spacing: 2px;
+  padding-bottom: 2vh;
 
   @media all and (max-width: 728px) {
     font-size: 16px;
@@ -163,32 +197,25 @@ const FilterSectionTitle = styled.div`
 `;
 
 const ItemPriceContainer = styled.div`
-  @media all and (max-width: 1330px) {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: column;
-    height: 75%;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 15px 1px #a6a6a6;
-  }
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  height: 75%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 15px 5px #a6a6a6;
 `;
 
 const ResetItemPrice = styled.button`
   border: none;
   background-color: transparent;
-  font-weight: 700;
-  font-size: 15px;
-  margin-bottom: 30px;
+  color: #1b1b1b;
   cursor: pointer;
 
-  @media all and (max-width: 1330px) {
-    font-weight: 400;
-    font-size: 18px;
-    height: 20%;
-    margin-bottom: 0;
-  }
+  font-weight: 400;
+  font-size: 18px;
+  height: 20%;
 
   @media all and (max-width: 728px) {
     font-size: 16px;
@@ -201,55 +228,28 @@ const ResetItemPrice = styled.button`
 
 const ItemPriceWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+
+  justify-content: center;
   align-items: center;
-  gap: 5px;
 
-  hr {
-    width: 80%;
-  }
-
-  @media all and (max-width: 1330px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-
-    height: 20%;
-
-    hr {
-      display: none;
-    }
-  }
+  height: 20%;
 `;
 
 const ItemPrice = styled.button`
-  font-size: 16px;
   border: none;
   background-color: transparent;
   cursor: pointer;
-  margin-bottom: -6px;
+  color: #1b1b1b;
+  font-size: 18px;
+  margin-bottom: 0;
 
   ${({ luxuryPriceRange, currentPriceRange }) =>
     luxuryPriceRange === currentPriceRange &&
     css`
       color: #ffd700;
-      font-size: 17px;
-      margin-bottom: -8px;
+      font-size: 18px;
+      margin-bottom: 0px;
     `}
-
-  @media all and (max-width: 1330px) {
-    font-size: 18px;
-    margin-bottom: 0;
-
-    ${({ luxuryPriceRange, currentPriceRange }) =>
-      luxuryPriceRange === currentPriceRange &&
-      css`
-        color: #ffd700;
-        font-size: 18px;
-        margin-bottom: 0px;
-      `}
-  }
 
   @media all and (max-width: 728px) {
     font-size: 16px;
@@ -261,38 +261,21 @@ const ItemPrice = styled.button`
 `;
 
 const ItemRatingContainer = styled.div`
-  background-color: transparent;
   width: 100%;
-  height: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-
-  @media all and (max-width: 1330px) {
-    height: 75%;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 15px 1px #a6a6a6;
-    justify-content: space-evenly;
-  }
+  height: 75%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 15px 1px #a6a6a6;
+  justify-content: space-evenly;
 `;
 
 const ItemRatingWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
-
-  hr {
-    width: 100%;
-    margin-top: 3px;
-  }
-
-  @media all and (max-width: 1330px) {
-    hr {
-      display: none;
-    }
-  }
 `;
 
 const ItemRating = styled.div`
@@ -300,6 +283,7 @@ const ItemRating = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 13px;
+  color: #1b1b1b;
   font-weight: ${({ luxuryRating, currentRating }) =>
     luxuryRating === currentRating ? "700" : "default"};
 

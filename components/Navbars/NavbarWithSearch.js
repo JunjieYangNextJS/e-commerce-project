@@ -51,6 +51,7 @@ const NavbarWithSearch = ({ searchQuery, setSearchQuery }) => {
   const [expandNavMenu, setExpandNavMenu] = useState(false);
 
   const handleNavMenuExpanded = () => {
+    window.scrollTo(0, 0);
     setExpandNavMenu(!expandNavMenu);
     !expandNavMenu ? disableScroll.on() : disableScroll.off();
   };
@@ -459,13 +460,16 @@ const ShoppingBag = styled.div`
   }
 
   @media all and (max-width: 480px) {
-    gap: 0;
-    left: 0;
-    font-size: 14px;
+    display: none;
   }
 `;
 
-const ItemCount = styled.div``;
+const ItemCount = styled.div`
+  display: flex;
+  @media all and (max-width: 480px) {
+    display: none;
+  }
+`;
 
 const MenuIconWrapper = styled.div`
   position: absolute;

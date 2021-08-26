@@ -20,5 +20,9 @@ export default function ShoppingCart() {
 
 const CheckOutPage = styled.div`
   display: flex;
-  padding-bottom: 200px;
+  padding-bottom: 15vh;
+
+  @media all and (max-width: 725px) {
+    flex-direction: column;
+  }
 `;

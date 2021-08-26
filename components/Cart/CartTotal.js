@@ -39,9 +39,16 @@ export default CartTotal;
 
 const CartTotalContainer = styled.div`
   width: 40vw;
+
+  @media all and (max-width: 728px) {
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: -80px;
+  }
 `;
 const CartTotalWrapper = styled.div`
-  margin: 50px 150px;
+  margin: 10% 20%;
+  padding: 1%;
   border: 1px solid #b0b0b0;
   border-radius: 5px;
   box-shadow: 0 0 5px 3px #b0b0b0;
@@ -57,11 +64,13 @@ const CartQuantityInfo = styled.div`
   margin-top: 50px;
   margin-bottom: 30px;
   color: #2b2b2b;
+  text-align: center;
 `;
 
 const CartSubtotalInfo = styled.div`
   font-size: 20px;
   margin-bottom: 100px;
+  text-align: center;
 `;
 
 const SumWrapper = styled.span`
@@ -85,8 +94,8 @@ const CarTotalDetail = styled.div`
 const ProceedButton = styled.button`
   font-size: 18px;
   border-radius: 10px;
-  line-height: 12px;
-  padding: 14px 17px;
+  line-height: 20px;
+  padding: 10px 17px;
   color: #e5dfd9;
   text-align: center;
   cursor: pointer;

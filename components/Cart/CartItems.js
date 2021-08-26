@@ -66,14 +66,18 @@ function CartItems() {
 export default CartItems;
 
 const CartItemsContainer = styled.div`
-  margin-top: 30px;
-  margin-left: 40px;
+  width: 60vw;
+  padding-top: 30px;
+  padding-left: 40px;
+  @media all and (max-width: 728px) {
+    width: 100%;
+    padding-right: 40px;
+  }
 `;
 const CartItemsWrapper = styled.div`
   padding-bottom: 20px;
 `;
 const CartItemSection = styled.div`
-  width: 60vw;
   h1 {
     padding-left: 50px;
     padding-top: 20px;

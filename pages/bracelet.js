@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PaginateBtn from "../components/PaginateBtn";
 import { paginate } from "../utility/paginate";
@@ -7,6 +7,8 @@ import { useLuxuries } from "../contexts/LuxuriesContext";
 import LuxuriesItems from "../components/LuxuriesItems";
 import FilterSidebarElements from "../components/FilterSidebarElements";
 import NavbarWithSearch from "./../components/Navbars/NavbarWithSearch";
+import FilterBottombarElements from "../components/FilterBottombarElements";
+import disableScroll from "disable-scroll";
 
 function Bracelet() {
   // get data for bracelet
@@ -65,18 +67,68 @@ function Bracelet() {
     pageSize
   );
 
+  // handle hiding the bottombar in y-axis from the user
+  const [hideBottombarOnScroll, setHideBottombarOnScroll] = useState(false);
+
+  useEffect(() => {
+    return () =>
+      window.addEventListener(
+        "scroll",
+        function () {
+          if (window.pageYOffset > 100) {
+            setHideBottombarOnScroll(true);
+          } else {
+            setHideBottombarOnScroll(false);
+          }
+        },
+        [hideBottombarOnScroll]
+      );
+  });
+
+  // handle showing and folding the expandBottombar in different situations
+  const [expandBottombar, setExpandBottombar] = useState(false);
+
+  const handleBottombarExpanded = () => {
+    window.scrollTo(0, 0);
+    setHideBottombarOnScroll(false);
+    setExpandBottombar(!expandBottombar);
+    !expandBottombar ? disableScroll.on() : disableScroll.off();
+  };
+
+  const handleBottombarOnResize = () => {
+    setExpandBottombar(false);
+    disableScroll.off();
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleBottombarOnResize);
+    return () => window.removeEventListener("resize", handleBottombarOnResize);
+  }, [expandBottombar]);
+
   return (
     <BraceletPageContainer>
       <NavbarWithSearch
         searchQuery={braceletSearchQuery}
         setSearchQuery={setBraceletSearchQuery}
       />
-      {/* <BraceletPageWrapper>
+      <BraceletPageWrapper>
         <FilterSidebarElements
           luxuryRating={braceletStarRating}
           setLuxuryRating={setBraceletStarRating}
+          luxuryPriceRange={braceletPriceRange}
           setLuxuryPriceRange={setBraceletPriceRange}
           setLuxuryCurrentPage={setBraceletCurrentPage}
+          luxuryType={"bracelet"}
+        />
+        <FilterBottombarElements
+          hideBottombarOnScroll={hideBottombarOnScroll}
+          expandBottombar={expandBottombar}
+          luxuryRating={braceletStarRating}
+          setLuxuryRating={setBraceletStarRating}
+          luxuryPriceRange={braceletPriceRange}
+          setLuxuryPriceRange={setBraceletPriceRange}
+          setLuxuryCurrentPage={setBraceletCurrentPage}
+          luxuryType={"bracelet"}
         />
         <BraceletBodyContainer>
           <BraceletBodyTitle>Our Exclusive Bracelet</BraceletBodyTitle>
@@ -98,8 +150,11 @@ function Bracelet() {
             setCurrentPage={setBraceletCurrentPage}
             pageNumberArray={braceletPageNumberArray}
           />
+          <FilterBottombarEnabler onClick={handleBottombarExpanded}>
+            Filter
+          </FilterBottombarEnabler>
         </BraceletBodyContainer>
-      </BraceletPageWrapper> */}
+      </BraceletPageWrapper>
     </BraceletPageContainer>
   );
 }
@@ -111,11 +166,22 @@ const BraceletPageContainer = styled.div``;
 const BraceletPageWrapper = styled.div`
   display: flex;
   flex-direction: row;
+
+  @media all and (max-width: 1330px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 const BraceletBodyContainer = styled.div`
-  width: 88vw;
-  height: 899px;
+  position: relative;
+  width: 87vw;
+  min-height: calc(100vh - 70px);
+  height: auto;
+
+  @media all and (max-width: 1330px) {
+    width: 100%;
+  }
 `;
 
 const BraceletBodyTitle = styled.h1`
@@ -130,8 +196,30 @@ const BraceletBodyTitle = styled.h1`
 const BraceletItemsContainer = styled.div`
   display: grid;
   background-color: #fff;
-  height: 800px;
+  height: auto;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  border-radius: 2px solid black;
+
+  @media all and (max-width: 1125px) {
+    grid-template-columns: none;
+    grid-template-rows: repeat(4, 1fr);
+  }
+`;
+
+const FilterBottombarEnabler = styled.button`
+  display: none;
+
+  @media all and (max-width: 1330px) {
+    display: flex;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    outline: none;
+    border: 1px solid #a6a6a6;
+    border-radius: 50px;
+    font-size: 15px;
+    padding: 3px 15px;
+    cursor: pointer;
+    box-shadow: 0 0 5px 3px rgb(239, 239, 239);
+  }
 `;
