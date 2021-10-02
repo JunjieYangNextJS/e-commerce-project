@@ -1,11 +1,19 @@
+import Head from "next/head";
 import Navbar from "../components/Navbars/Navbar";
 import styled from "styled-components";
 import Image from "next/dist/client/image";
-import Footer from "../components/Footer";
 
 export default function AboutUs() {
   return (
     <>
+      <Head>
+        <title>About Our Company</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="description"
+          content="Learn about our company and contact us for help."
+        ></meta>
+      </Head>
       <Navbar />
       <AboutUsHelpPage>
         <AboutUsHelpContainer>
@@ -26,6 +34,7 @@ export default function AboutUs() {
               src={
                 "https://images.unsplash.com/photo-1450297166380-cabe503887e5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1045&q=80"
               }
+              alt="fashion lady with luxuries"
               width={750}
               height={500}
             />
@@ -37,6 +46,7 @@ export default function AboutUs() {
               src={
                 "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
               }
+              alt="cute doggo looking at his laptop"
               width={750}
               height={500}
             />
@@ -57,7 +67,6 @@ export default function AboutUs() {
           </AboutUsHelpSection>
         </AboutUsHelpContainer>
       </AboutUsHelpPage>
-      <Footer />
     </>
   );
 }
@@ -66,7 +75,7 @@ const AboutUsHelpPage = styled.div`
   display: flex;
   flex-direction: column;
   height: auto;
-  padding: 0px 5.2vw 80px 5.2vw;
+  padding: 0px 5.2vw 120px 5.2vw;
   gap: 20px;
   background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1));
   @media all and (max-width: 1125px) {

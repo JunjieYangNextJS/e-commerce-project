@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { StarIcon } from "@heroicons/react/solid";
 import Currency from "react-currency-formatter";
 import _ from "lodash";
 
@@ -12,19 +11,13 @@ function ProductFeed({ products }) {
         <ProductContainerTop>
           <Image
             src="https://cdn.discordapp.com/attachments/800941790798544949/870432514202804224/-1.png"
+            alt="bracelet"
             height={200}
             width={200}
             objectFit="contain"
           />
           <h4>{products[0].title}</h4>
           <p>{products[0].description}</p>
-          {/* <StarIconContainer>
-            {Array(products[0].rating)
-              .fill()
-              .map((_, i) => (
-                <StarIcon key={i} />
-              ))}
-          </StarIconContainer> */}
           <PriceContainer>
             <Currency quantity={products[0].price} />
           </PriceContainer>
@@ -32,19 +25,13 @@ function ProductFeed({ products }) {
         <ProductContainerTop>
           <Image
             src="https://cdn.discordapp.com/attachments/800941790798544949/870436130502365234/3.png"
+            alt="rings"
             height={200}
             width={200}
             objectFit="contain"
           />
           <h4>{products[2].title}</h4>
           <p>{products[2].description}</p>
-          {/* <StarIconContainer>
-            {Array(products[2].rating)
-              .fill()
-              .map((_, i) => (
-                <StarIcon key={i} />
-              ))}
-          </StarIconContainer> */}
           <PriceContainer>
             <Currency quantity={products[2].price} />
           </PriceContainer>
@@ -55,19 +42,13 @@ function ProductFeed({ products }) {
         <ProductContainerBottom>
           <Image
             src="https://cdn.discordapp.com/attachments/800941790798544949/870434997868326982/2.png"
+            alt="bracelet"
             height={200}
             width={200}
             objectFit="contain"
           />
           <h4>{products[1].title}</h4>
           <p>{products[1].description}</p>
-          {/* <StarIconContainer>
-            {Array(products[1].rating)
-              .fill()
-              .map((_, i) => (
-                <StarIcon key={i} />
-              ))}
-          </StarIconContainer> */}
           <PriceContainer>
             <Currency quantity={products[1].price} />
           </PriceContainer>
@@ -75,19 +56,13 @@ function ProductFeed({ products }) {
         <ProductContainerBottom>
           <Image
             src="https://cdn.discordapp.com/attachments/800941790798544949/870438441362554880/4.png"
+            alt="earrings"
             height={200}
             width={200}
             objectFit="contain"
           />
           <h4>{products[3].title}</h4>
           <p>{products[3].description}</p>
-          {/* <StarIconContainer>
-            {Array(products[3].rating)
-              .fill()
-              .map((_, i) => (
-                <StarIcon key={i} />
-              ))}
-          </StarIconContainer> */}
           <PriceContainer>
             <Currency quantity={products[3].price} />
           </PriceContainer>

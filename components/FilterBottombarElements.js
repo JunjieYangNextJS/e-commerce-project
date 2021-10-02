@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import router from "next/router";
 import ReactStars from "react-rating-stars-component";
@@ -129,23 +129,6 @@ const FilterBottombarContainer = styled.div`
     bottom: ${({ expandBottombar }) => (expandBottombar ? "0" : "-100%")};
   }
 `;
-
-// ``  /* ${({ expandBottombar }) =>
-//     expandBottombar
-//       ? css`
-//           bottom: 0;
-//           visibility: ${({ hideBottombarOnScroll }) =>
-//             hideBottombarOnScroll ? "hidden" : "visible"};
-//           display: ${({ hideBottombarOnScroll }) =>
-//             hideBottombarOnScroll ? "none" : "flex"};
-//           transition: all 0.5s ease;
-//         `
-//       : css`
-//             bottom: -100%
-//             visibility: hidden;
-//             display: flex;
-//           `}
-//   } */
 
 const FilterBottombarWrapper = styled.div`
   top: 25vh;

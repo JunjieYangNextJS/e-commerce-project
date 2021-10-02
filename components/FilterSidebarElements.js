@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import router from "next/router";
 import ReactStars from "react-rating-stars-component";
@@ -91,6 +91,8 @@ const FilterSidebarContainer = styled.div`
   z-index: 10;
   height: auto;
   position: relative;
+  padding-top: 13rem;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1));
 
   @media all and (max-width: 1330px) {
     display: none;
@@ -98,7 +100,6 @@ const FilterSidebarContainer = styled.div`
 `;
 
 const FilterSidebarWrapper = styled.div`
-  position: sticky;
   top: 25vh;
   display: flex;
   flex-direction: column;

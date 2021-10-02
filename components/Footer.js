@@ -4,6 +4,7 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import YouTubeIcon from "@material-ui/icons/YouTube";
+import CopyrightIcon from "@material-ui/icons/Copyright";
 
 function Footer() {
   return (
@@ -92,7 +93,6 @@ const FooterContainer = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
-  /* gap: 250px; */
   gap: 13%;
 
   @media all and (max-width: 728px) {

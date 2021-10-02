@@ -134,7 +134,10 @@ const NavbarWithSearch = ({ searchQuery, setSearchQuery }) => {
             onMouseEnter={showAccountDDL}
             onMouseLeave={foldAccountDDL}
           >
-            <UserAccessHead onClick={!session ? signIn : null}>
+            <UserAccessHead
+              onClick={!session ? signIn : null}
+              session={session}
+            >
               {session ? `Hi, ${session.user.name}` : "Login"}
             </UserAccessHead>
             <UserAccessBody>
@@ -342,7 +345,6 @@ const UserAccessWrapper = styled.div`
 
   @media all and (max-width: 728px) {
     font-size: 15px;
-
     width: 45vw;
   }
 `;
@@ -361,15 +363,13 @@ const UserAccessSection = styled.div`
 
 const UserAccessHead = styled.div`
   position: relative;
-  top: 1px;
+  bottom: 1px;
   display: flex;
   justify-content: center;
   align-items: center;
   word-wrap: break-word;
   max-width: 200px;
-  @media all and (max-width: 1125px) {
-    top: 3px;
-  }
+  font-size: ${({ session }) => (!session ? "24px" : "inherit")};
 `;
 
 const UserAccessBody = styled.div`

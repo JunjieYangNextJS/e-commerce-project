@@ -4,30 +4,44 @@ import Image from "next/image";
 import Currency from "react-currency-formatter";
 import _ from "lodash";
 import { db } from "../firebase";
+import { signIn, useSession } from "next-auth/client";
 
-function LuxuriesItems({ id, image, title, price, rating, description }) {
+function LuxuriesItems({ id, image, alt, title, price, rating, description }) {
+  const [session] = useSession();
+
   const addToCart = () => {
-    const cartItem = db.collection("cartItems").doc(id);
-    cartItem.get().then((doc) => {
-      if (doc.exists) {
-        cartItem.update({
-          quantity: doc.data().quantity + 1,
-        });
-      } else {
-        db.collection("cartItems").doc(id).set({
-          name: title,
-          image: image,
-          price: price,
-          quantity: 1,
-        });
-      }
-    });
+    if (session) {
+      const cartItem = db.collection("cartItems").doc(id);
+      cartItem.get().then((doc) => {
+        if (doc.exists) {
+          cartItem.update({
+            quantity: doc.data().quantity + 1,
+          });
+        } else {
+          db.collection("cartItems").doc(id).set({
+            name: title,
+            image: image,
+            alt: "luxury",
+            price: price,
+            quantity: 1,
+          });
+        }
+      });
+    } else {
+      signIn();
+    }
   };
 
   return (
     <LuxuryContainer>
       <MainContainer>
-        <Image src={image} height={230} width={230} objectFit="contain" />
+        <Image
+          src={image}
+          alt={alt}
+          height={230}
+          width={230}
+          objectFit="contain"
+        />
         <Rating>
           {Array(Math.floor(rating))
             .fill()

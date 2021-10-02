@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Head from "next/head";
 import styled from "styled-components";
 import PaginateBtn from "../components/PaginateBtn";
 import { paginate } from "../utility/paginate";
@@ -107,6 +108,14 @@ function Bracelet() {
 
   return (
     <BraceletPageContainer>
+      <Head>
+        <title>Our Exclusive Bracelets</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="description"
+          content="Here are some of our signature bracelet designs."
+        ></meta>
+      </Head>
       <NavbarWithSearch
         searchQuery={braceletSearchQuery}
         setSearchQuery={setBraceletSearchQuery}
@@ -131,13 +140,14 @@ function Bracelet() {
           luxuryType={"bracelet"}
         />
         <BraceletBodyContainer>
-          <BraceletBodyTitle>Our Exclusive Bracelet</BraceletBodyTitle>
+          <BraceletBodyTitle>Our Exclusive Bracelets</BraceletBodyTitle>
           <BraceletItemsContainer>
             {braceletEachPage.map(({ id, product }) => (
               <LuxuriesItems
                 key={id}
                 id={id}
                 image={product.image}
+                alt="bracelet"
                 title={product.name}
                 price={product.price}
                 rating={product.rating}
@@ -178,6 +188,7 @@ const BraceletBodyContainer = styled.div`
   width: 87vw;
   min-height: calc(100vh - 70px);
   height: auto;
+  padding-bottom: 120px;
 
   @media all and (max-width: 1330px) {
     width: 100%;
@@ -187,10 +198,9 @@ const BraceletBodyContainer = styled.div`
 const BraceletBodyTitle = styled.h1`
   font-family: "Times New Roman", Times, serif;
   font-size: 42px;
-  margin-bottom: 4px;
   cursor: default;
   text-align: center;
-  color: black;
+  color: #1b1b1b;
 `;
 
 const BraceletItemsContainer = styled.div`

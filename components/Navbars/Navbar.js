@@ -91,7 +91,10 @@ const Navbar = () => {
             onMouseEnter={showAccountDDL}
             onMouseLeave={foldAccountDDL}
           >
-            <UserAccessHead onClick={!session ? signIn : null}>
+            <UserAccessHead
+              onClick={!session ? signIn : null}
+              session={session}
+            >
               {session ? `Hi, ${session.user.name}` : "Login"}
             </UserAccessHead>
             <UserAccessBody>
@@ -278,15 +281,12 @@ const UserAccessSection = styled.div`
 
 const UserAccessHead = styled.div`
   position: relative;
-  top: 1px;
   display: flex;
   justify-content: center;
   align-items: center;
   word-wrap: break-word;
   max-width: 200px;
-  @media all and (max-width: 1125px) {
-    top: 3px;
-  }
+  font-size: ${({ session }) => (!session ? "24px" : "inherit")};
 `;
 
 const UserAccessBody = styled.div`
@@ -395,97 +395,3 @@ const MenuIconWrapper = styled.div`
     display: flex;
   }
 `;
-
-// const UserAccessWrapper = styled.div`
-//   width: 20%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// `;
-
-// const UserAccessSection = styled.div`
-//   cursor: pointer;
-//   font-size: 25px;
-//   font-weight: bold;
-//   position: relative;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   height: 70px;
-//   top: 20px;
-//   z-index: 999;
-// `;
-
-// const UserAccessHead = styled.div``;
-
-// const UserAccessBody = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   position: absolute;
-//   width: 150px;
-//   top: 50px;
-// `;
-
-// const AccountDropDownList = styled.div`
-//   box-shadow: #a6a6a6 0 0 20px 5px;
-//   background-color: #2e3131;
-// `;
-
-// const AccountSection = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   gap: 24px;
-//   padding-top: 30px;
-//   padding-bottom: 50px;
-
-//   a {
-//     font-size: 20px;
-//     font-weight: 600;
-//     color: #eee;
-
-//     :hover {
-//       font-weight: 600;
-//       border-bottom: 2px solid #febd69;
-//       margin-bottom: -2px;
-//     }
-//   }
-// `;
-
-// const SignOutSection = styled.div`
-//   cursor: pointer;
-//   display: flex;
-//   justify-content: center;
-//   font-size: 19px;
-//   font-weight: 600;
-//   color: #eee;
-//   transition: all 0.2s ease-in-out;
-//   height: 60px;
-
-//   :hover {
-//     font-weight: 600;
-//     font-size: 20px;
-
-//     transition: all 0.2s ease-in-out;
-//   }
-// `;
-
-// const ShoppingBag = styled.div`
-//   display: flex;
-//   align-items: center;
-//   position: relative;
-//   left: 20px;
-//   top: 3px;
-//   gap: 2px;
-//   cursor: pointer;
-//   transition: all 0.2s ease-in-out;
-//   :hover {
-//     color: rgb(255, 215, 0);
-//     transition: all 0.2s ease-in-out;
-//   }
-// `;
-
-// const ItemCount = styled.div`
-//   font-size: 20px;
-// `;

@@ -32,6 +32,7 @@ function CartItems() {
                 key={id}
                 id={id}
                 image={product.image}
+                alt="luxury in cart"
                 name={product.name}
                 price={product.price}
                 quantity={product.quantity}

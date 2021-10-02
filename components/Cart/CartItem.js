@@ -7,6 +7,7 @@ import Currency from "react-currency-formatter";
 function CartItem({
   id,
   image,
+  alt,
   name,
   price,
   quantity,
@@ -41,7 +42,13 @@ function CartItem({
 
   return (
     <CartItemContainer>
-      <Image src={image} height={160} width={160} objectFit="contain" />
+      <Image
+        src={image}
+        alt={alt}
+        height={160}
+        width={160}
+        objectFit="contain"
+      />
       <CartItemDetails>
         <CartItemName>{name}</CartItemName>
         <CartItemPrice>
