@@ -296,6 +296,7 @@ const UserAccessSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   height: 70px;
   top: 20px;
   z-index: 100;
