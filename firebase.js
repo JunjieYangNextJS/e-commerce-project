@@ -17,5 +17,6 @@ if (firebase.apps.length === 0) {
 const db = firebase.firestore();
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
+const increment = firebase.firestore.FieldValue.increment(1);
 
-export { db, auth, provider };
+export { db, auth, provider, increment };

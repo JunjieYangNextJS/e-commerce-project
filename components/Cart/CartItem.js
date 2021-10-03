@@ -52,12 +52,12 @@ function CartItem({
       <CartItemDetails>
         <CartItemName>{name}</CartItemName>
         <CartItemPrice>
-          <Currency quantity={price} />
+          <Currency quantity={parseInt(price)} />
         </CartItemPrice>
 
         <CartItemQuantityContainer>
           <CartItemPriceInSmallerScreen>
-            <Currency quantity={price} />
+            <Currency quantity={parseInt(price)} />
           </CartItemPriceInSmallerScreen>
           <CartItemQuantitySelect
             value={quantity}

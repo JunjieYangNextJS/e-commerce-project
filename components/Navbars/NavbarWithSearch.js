@@ -10,8 +10,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import { signIn, signOut, useSession } from "next-auth/client";
 import SearchBox from "./../SearchBox";
 import NavMenuExpanded from "./NavMenuExpanded";
+import { db } from "../../firebase";
 import { useLuxuriesTypes } from "../../contexts/LuxuriesContext";
-import { useCartItemsGetQuantity } from "../../contexts/CartItemsContext";
 
 const NavbarWithSearch = ({ searchQuery, setSearchQuery }) => {
   // handle Login Session
@@ -19,9 +19,6 @@ const NavbarWithSearch = ({ searchQuery, setSearchQuery }) => {
 
   // get an array of luxury Types to iterate over in <ProductsPageDropDownList>
   const luxuryTypes = useLuxuriesTypes();
-
-  // a function to get the quantity of cartItems
-  const getCartItemsQuantity = useCartItemsGetQuantity();
 
   // handle showing and folding productsPage dropdownlist(DDL) after hovering on <UserAccessSection>
   const [productsPageDDL, setProductsPageDDL] = useState(false);
@@ -74,6 +71,30 @@ const NavbarWithSearch = ({ searchQuery, setSearchQuery }) => {
     return () => window.removeEventListener("resize", handleNavMenuOnResize);
   }, [expandNavMenu]);
 
+  const [count, setCount] = useState(null);
+
+  useEffect(() => {
+    if (session) {
+      db.collection("cartItems")
+        .where("userEmail", "==", session.user.email)
+        .onSnapshot((snapshot) => {
+          let tempCartItems = [];
+          tempCartItems = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            product: doc.data(),
+          }));
+          let tempCount = 0;
+          tempCartItems.forEach((cartItem) => {
+            tempCount += cartItem.product.quantity;
+          });
+
+          setCount(tempCount);
+        });
+      return () => {
+        setCount(null);
+      };
+    }
+  }, [session]);
   // handle filtering items by name in this page and direct user to other page when click search icon
   const handleSearchQuery = (newSearchQuery) => {
     setSearchQuery(newSearchQuery);
@@ -160,7 +181,7 @@ const NavbarWithSearch = ({ searchQuery, setSearchQuery }) => {
             <ShoppingBag onClick={() => directToPage("shopping-cart")}>
               <LocalMallIcon />
 
-              <ItemCount>{getCartItemsQuantity()}</ItemCount>
+              <ItemCount>{count}</ItemCount>
             </ShoppingBag>
           )}
         </UserAccessWrapper>

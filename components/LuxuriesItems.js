@@ -2,31 +2,35 @@ import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Currency from "react-currency-formatter";
-import _ from "lodash";
-import { db } from "../firebase";
+import { db, increment } from "../firebase";
 import { signIn, useSession } from "next-auth/client";
 
 function LuxuriesItems({ id, image, alt, title, price, rating, description }) {
   const [session] = useSession();
 
-  const addToCart = () => {
+  const addToCart = async (id) => {
     if (session) {
-      const cartItem = db.collection("cartItems").doc(id);
-      cartItem.get().then((doc) => {
-        if (doc.exists) {
-          cartItem.update({
-            quantity: doc.data().quantity + 1,
-          });
-        } else {
-          db.collection("cartItems").doc(id).set({
-            name: title,
-            image: image,
-            alt: "luxury",
-            price: price,
-            quantity: 1,
-          });
-        }
-      });
+      const cartRef = db.collection("cartItems");
+      const snapshot = await cartRef
+        .where("cartItemId", "==", id)
+        .where("userEmail", "==", session.user.email)
+        .get();
+
+      if (snapshot.empty) {
+        db.collection("cartItems").add({
+          cartItemId: id,
+          userEmail: session.user.email,
+          name: title,
+          image: image,
+          alt: "luxury",
+          price: price,
+          quantity: 1,
+        });
+      } else {
+        snapshot.docs[0].ref.update({
+          quantity: increment,
+        });
+      }
     } else {
       signIn();
     }
@@ -50,13 +54,15 @@ function LuxuriesItems({ id, image, alt, title, price, rating, description }) {
             ))}
         </Rating>
         <PriceContainer>
-          <Currency quantity={price} />
+          <Currency quantity={parseInt(price)} />
         </PriceContainer>
       </MainContainer>
       <TextContainer>
         <h4>{title}</h4>
         <Description>{description}</Description>
-        <AddToCartButton onClick={addToCart}>Add To Cart</AddToCartButton>
+        <AddToCartButton onClick={() => addToCart(id)}>
+          Add To Cart
+        </AddToCartButton>
       </TextContainer>
     </LuxuryContainer>
   );

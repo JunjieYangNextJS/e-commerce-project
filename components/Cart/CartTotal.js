@@ -1,14 +1,25 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  useCartItemsGetQuantity,
-  useCartItemsGetSubtotal,
-} from "../../contexts/CartItemsContext";
 import Currency from "react-currency-formatter";
 
-function CartTotal() {
-  const getCartItemsQuantity = useCartItemsGetQuantity();
-  const getCartItemsSubtotal = useCartItemsGetSubtotal();
+function CartTotal({ cartItems }) {
+  const getCartItemsQuantity = () => {
+    let count = 0;
+    cartItems.forEach((cartItem) => {
+      count += cartItem.product.quantity;
+    });
+
+    return count;
+  };
+
+  const getCartItemsSubtotal = () => {
+    let subtotal = 0;
+    cartItems.forEach((cartItem) => {
+      subtotal += cartItem.product.quantity * cartItem.product.price;
+    });
+
+    return subtotal;
+  };
 
   return (
     <CartTotalContainer>

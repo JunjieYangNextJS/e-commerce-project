@@ -8,8 +8,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 import NavMenuExpanded from "./NavMenuExpanded";
 import { signIn, signOut, useSession } from "next-auth/client";
+import { db } from "../../firebase";
 import { useLuxuriesTypes } from "../../contexts/LuxuriesContext";
-import { useCartItemsGetQuantity } from "../../contexts/CartItemsContext";
 
 const Navbar = () => {
   // handle Login Session
@@ -17,9 +17,6 @@ const Navbar = () => {
 
   // get an array of luxury Types to iterate over in <ProductsPageDropDownList>
   const luxuryTypes = useLuxuriesTypes();
-
-  // a function to get the quantity of cartItems
-  const getCartItemsQuantity = useCartItemsGetQuantity();
 
   // handle showing and folding account dropdownlist(DDL) after hovering on <UserAccessSection>
   const [accountDDL, setAccountDDL] = useState(false);
@@ -60,6 +57,31 @@ const Navbar = () => {
     window.addEventListener("resize", handleNavMenuOnResize);
     return () => window.removeEventListener("resize", handleNavMenuOnResize);
   }, [expandNavMenu]);
+
+  const [count, setCount] = useState(null);
+
+  useEffect(() => {
+    if (session) {
+      db.collection("cartItems")
+        .where("userEmail", "==", session.user.email)
+        .onSnapshot((snapshot) => {
+          let tempCartItems = [];
+          tempCartItems = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            product: doc.data(),
+          }));
+          let tempCount = 0;
+          tempCartItems.forEach((cartItem) => {
+            tempCount += cartItem.product.quantity;
+          });
+
+          setCount(tempCount);
+        });
+      return () => {
+        setCount(null);
+      };
+    }
+  }, [session]);
 
   return (
     <>
@@ -116,7 +138,7 @@ const Navbar = () => {
           {session && (
             <ShoppingBag onClick={() => directToPage("shopping-cart")}>
               <LocalMallIcon style={{ fontSize: 28 }} />
-              <ItemCount>{getCartItemsQuantity()}</ItemCount>
+              <ItemCount>{count}</ItemCount>
             </ShoppingBag>
           )}
         </UserAccessWrapper>

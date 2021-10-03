@@ -3,11 +3,9 @@ import styled from "styled-components";
 import CartItem from "./CartItem";
 import PaginateBtn from "../PaginateBtn";
 import { paginate } from "../../utility/paginate";
-import { useCartItems } from "../../contexts/CartItemsContext";
 
-function CartItems() {
+function CartItems({ cartItems }) {
   // get cartItems and display cartItems on each page
-  const cartItems = useCartItems();
 
   const [cartPage, setCartPage] = useState(1);
 

@@ -1,4 +1,3 @@
-import image from "next/image";
 import React, { useContext, useState, useEffect } from "react";
 import { db } from "../firebase";
 
